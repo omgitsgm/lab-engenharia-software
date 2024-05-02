@@ -1,8 +1,11 @@
 from flask import Blueprint, request, Response
 from model.domain.Paciente import Paciente
 from model.service.PacienteService import PacienteService
+from .util.RequestDataValidator import RequestDataValidator
 
 pacienteController = Blueprint('pacienteController', __name__, url_prefix='/paciente')
+
+validator = RequestDataValidator
 
 @pacienteController.route('/', methods=['POST'])
 def save_paciente():
@@ -20,7 +23,15 @@ def save_paciente():
     if not nome or not cpf or not email or not telefone:
         return Response("Campos obrigatórios não preenchidos", status=400)
     
-    # A fazer: Validar formato de cpf, e-mail e telefone
+    # Validar formato de cpf, e-mail e telefone
+    if not validator.is_valid_cpf(cpf):
+        return Response("CPF inválido.", status=400)
+    
+    if not validator.is_valid_email(email):
+        return Response("Email inválido.", status=400)
+    
+    if not validator.is_valid_phone_number(telefone):
+        return Response("Telefone inválido.", status=400)
     
     # Crio um objeto Paciente a partir das variáveis
     paciente = Paciente(nome, cpf, email, telefone)
