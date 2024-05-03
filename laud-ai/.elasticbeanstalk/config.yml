@@ -1,0 +1,19 @@
+branch-defaults:
+  default:
+    environment: Laudai-env
+environment-defaults:
+  Laudai-env:
+    branch: null
+    repository: null
+global:
+  application_name: laudai
+  default_ec2_keyname: null
+  default_platform: Python 3.11 running on 64bit Amazon Linux 2023
+  default_region: us-east-1
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: null
+  sc: null
+  workspace_type: Application
