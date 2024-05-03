@@ -30,3 +30,14 @@ class RequestDataValidator:
         else:
             return False
     
+    def is_valid_cep(cep):
+        # Regex para validar o formato do CEP (XXXXX-XXX)
+        pattern = re.compile(r'^\d{5}-\d{3}$')
+        if pattern.match(cep):
+            # Verificar se o intervalo de valores é válido (opcional)
+            # Por exemplo, para o Brasil, os CEPs estão no intervalo de 01000-000 a 99999-999
+            cep_digits = int(cep.replace('-', ''))
+            #  01208011
+            if 1000000 <= cep_digits <= 99999999:
+                return True
+        return False
