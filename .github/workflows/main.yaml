@@ -9,7 +9,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: ./laud-ai
     steps:
       - uses: actions/checkout@v2
 
@@ -30,9 +32,10 @@ jobs:
   deploy:
     needs:
       - build
-
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: ./laud-ai
     steps:
       - uses: actions/checkout@v2
 
