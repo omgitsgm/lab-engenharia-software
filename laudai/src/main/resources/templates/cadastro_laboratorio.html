@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Laboratório</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <button id="dark-mode-toggle" class="dark-mode-toggle" onclick="toggleDarkMode()"></button>
+
+    <div class="container">
+        <h2>Cadastro de Laboratório</h2>
+        <form action="#" method="post">
+            <label for="nome">Nome do Laboratório:</label>
+            <input type="text" id="nome" name="nome" required>
+
+            <input type="submit" value="Cadastrar">
+        </form>
+    </div>
+
+    <script>
+        function toggleDarkMode() {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+        }
+    </script>
+</body>
+</html>
