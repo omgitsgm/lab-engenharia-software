@@ -14,12 +14,6 @@ import java.util.List;
 @Setter
 public class Laboratorio {
 
-    public Laboratorio(String nome) {
-        this.nome = nome;
-        this.consultas = new ArrayList<>();
-        this.exames = new ArrayList<>();
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
