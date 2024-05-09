@@ -2,18 +2,16 @@ package br.com.laudai.domain.service;
 
 import br.com.laudai.domain.model.Paciente;
 import br.com.laudai.infra.repository.PacienteRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class PacienteServiceImpl implements PacienteService {
 
     private final PacienteRepository pacienteRepository;
-
-    public PacienteServiceImpl(PacienteRepository pacienteRepository){
-        this.pacienteRepository = pacienteRepository;
-    }
 
     @Override
     public void save(Paciente paciente) {

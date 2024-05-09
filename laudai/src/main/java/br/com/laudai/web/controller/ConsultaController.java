@@ -1,11 +1,12 @@
-package br.com.laudai.controller;
+package br.com.laudai.web.controller;
 
-import br.com.laudai.controller.dto.ConsultaInput;
-import br.com.laudai.controller.dto.ConsultaOutput;
-import br.com.laudai.controller.util.ConsultaMapper;
+import br.com.laudai.web.dto.input.ConsultaInput;
+import br.com.laudai.web.dto.output.ConsultaOutput;
+import br.com.laudai.web.mapper.ConsultaMapper;
 import br.com.laudai.domain.model.Consulta;
 import br.com.laudai.domain.service.ConsultaService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,18 +15,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/paciente/{pacienteId}/consulta")
 public class ConsultaController {
 
     private final ConsultaService consultaService;
     private final ConsultaMapper consultaMapper;
-
-    public ConsultaController(ConsultaService consultaService, ConsultaMapper consultaMapper){
-        this.consultaService = consultaService;
-        this.consultaMapper = consultaMapper;
-    }
-
-
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED, reason = "Consulta agendada com sucesso.")

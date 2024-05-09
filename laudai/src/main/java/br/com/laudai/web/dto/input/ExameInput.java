@@ -1,4 +1,4 @@
-package br.com.laudai.controller.dto;
+package br.com.laudai.web.dto.input;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

@@ -5,20 +5,17 @@ import br.com.laudai.domain.model.Laboratorio;
 import br.com.laudai.infra.repository.ExameRepository;
 import br.com.laudai.infra.repository.LaboratorioRepository;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class LaboratorioServiceImpl implements LaboratorioService{
 
     private final LaboratorioRepository laboratorioRepository;
     private final ExameService exameService;
-
-    public LaboratorioServiceImpl(LaboratorioRepository laboratorioRepository, ExameService exameService) {
-        this.laboratorioRepository = laboratorioRepository;
-        this.exameService = exameService;
-    }
 
     @Override
     public void save(Laboratorio laboratorio) {
