@@ -8,6 +8,7 @@ import br.com.laudai.controller.util.LaboratorioMapper;
 import br.com.laudai.domain.model.Laboratorio;
 import br.com.laudai.domain.service.LaboratorioService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,16 +17,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/laboratorio")
 public class LaboratorioController {
 
     private final LaboratorioService laboratorioService;
     private final LaboratorioMapper laboratorioMapper;
-
-    public LaboratorioController(LaboratorioService laboratorioService, LaboratorioMapper laboratorioMapper) {
-        this.laboratorioService = laboratorioService;
-        this.laboratorioMapper = laboratorioMapper;
-    }
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED, reason = "Laboratório cadastrado com sucesso.")
