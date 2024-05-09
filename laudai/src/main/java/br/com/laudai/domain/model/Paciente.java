@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,14 +12,6 @@ import java.util.List;
 @Getter
 @Setter
 public class Paciente {
-
-    public Paciente(String nome, String cpf, String email, String telefone) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.email = email;
-        this.telefone = telefone;
-        this.consultas = new ArrayList<>();
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
