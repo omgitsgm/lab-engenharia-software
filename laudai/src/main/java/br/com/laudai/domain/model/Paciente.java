@@ -14,8 +14,6 @@ import java.util.List;
 @Setter
 public class Paciente {
 
-    public Paciente(){}
-
     public Paciente(String nome, String cpf, String email, String telefone) {
         this.nome = nome;
         this.cpf = cpf;
