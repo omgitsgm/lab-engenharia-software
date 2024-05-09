@@ -1,6 +1,6 @@
-package br.com.laudai.controller;
+package br.com.laudai.web.controller;
 
-import br.com.laudai.controller.dto.ExameInput;
+import br.com.laudai.web.dto.input.ExameInput;
 import br.com.laudai.domain.service.ExameService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

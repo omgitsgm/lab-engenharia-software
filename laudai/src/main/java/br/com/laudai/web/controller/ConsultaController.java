@@ -1,8 +1,8 @@
-package br.com.laudai.controller;
+package br.com.laudai.web.controller;
 
-import br.com.laudai.controller.dto.ConsultaInput;
-import br.com.laudai.controller.dto.ConsultaOutput;
-import br.com.laudai.controller.util.ConsultaMapper;
+import br.com.laudai.web.dto.input.ConsultaInput;
+import br.com.laudai.web.dto.output.ConsultaOutput;
+import br.com.laudai.web.mapper.ConsultaMapper;
 import br.com.laudai.domain.model.Consulta;
 import br.com.laudai.domain.service.ConsultaService;
 import jakarta.validation.Valid;

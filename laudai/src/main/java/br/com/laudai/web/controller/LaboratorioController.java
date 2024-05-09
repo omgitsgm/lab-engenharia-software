@@ -1,10 +1,9 @@
-package br.com.laudai.controller;
+package br.com.laudai.web.controller;
 
-import br.com.laudai.controller.dto.ExameInput;
-import br.com.laudai.controller.dto.LaboratorioInput;
-import br.com.laudai.controller.dto.LaboratorioOutput;
-import br.com.laudai.controller.dto.PacienteInput;
-import br.com.laudai.controller.util.LaboratorioMapper;
+import br.com.laudai.web.dto.input.ExameInput;
+import br.com.laudai.web.dto.input.LaboratorioInput;
+import br.com.laudai.web.dto.output.LaboratorioOutput;
+import br.com.laudai.web.mapper.LaboratorioMapper;
 import br.com.laudai.domain.model.Laboratorio;
 import br.com.laudai.domain.service.LaboratorioService;
 import jakarta.validation.Valid;
@@ -13,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController

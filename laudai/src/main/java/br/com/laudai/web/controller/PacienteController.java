@@ -1,7 +1,7 @@
-package br.com.laudai.controller;
+package br.com.laudai.web.controller;
 
-import br.com.laudai.controller.dto.PacienteInput;
-import br.com.laudai.controller.util.PacienteMapper;
+import br.com.laudai.web.dto.input.PacienteInput;
+import br.com.laudai.web.mapper.PacienteMapper;
 import br.com.laudai.domain.model.Paciente;
 import br.com.laudai.domain.service.PacienteService;
 import jakarta.validation.Valid;
