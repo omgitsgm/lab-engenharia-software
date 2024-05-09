@@ -2,16 +2,14 @@ package br.com.laudai.domain.service;
 
 import br.com.laudai.domain.model.Exame;
 import br.com.laudai.infra.repository.ExameRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ExameServiceImpl implements ExameService {
 
     private final ExameRepository exameRepository;
-
-    public ExameServiceImpl(ExameRepository exameRepository) {
-        this.exameRepository = exameRepository;
-    }
 
     @Override
     public void cadastrar(String nome) {

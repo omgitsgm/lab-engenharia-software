@@ -6,26 +6,20 @@ import br.com.laudai.domain.model.Laboratorio;
 import br.com.laudai.domain.model.Paciente;
 import br.com.laudai.infra.repository.ConsultaRepository;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ConsultaServiceImpl implements ConsultaService{
 
     private final PacienteService pacienteService;
     private final ExameService exameService;
     private final LaboratorioService laboratorioService;
     private final ConsultaRepository consultaRepository;
-
-    public ConsultaServiceImpl(PacienteService pacienteService, ExameService exameService,
-                               LaboratorioService laboratorioService, ConsultaRepository consultaRepository) {
-        this.pacienteService = pacienteService;
-        this.exameService = exameService;
-        this.laboratorioService = laboratorioService;
-        this.consultaRepository = consultaRepository;
-    }
 
     @Override
     @Transactional
