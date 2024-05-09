@@ -1,21 +1,18 @@
 package br.com.laudai.web.mapper;
 
-import br.com.laudai.web.dto.output.ConsultaOutput;
 import br.com.laudai.domain.model.Consulta;
-import org.springframework.stereotype.Component;
+import br.com.laudai.web.dto.output.ConsultaOutput;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@Component
-public class ConsultaMapper {
+import java.util.ArrayList;
 
-    public ConsultaOutput toConsultaOutput(Consulta consulta) {
+@Mapper(componentModel = "spring", imports = ArrayList.class)
+public interface ConsultaMapper {
 
-        return new ConsultaOutput(
-                consulta.getPaciente().getNome(),
-                consulta.getExame().getNome(),
-                consulta.getLaboratorio().getNome(),
-                consulta.getDataHorario()
-        );
-
-    }
+    @Mapping(target = "nomePaciente", source = "paciente.nome")
+    @Mapping(target = "nomeExame", source = "exame.nome")
+    @Mapping(target = "nomeLaboratorio", source = "laboratorio.nome")
+    ConsultaOutput toConsultaOutput(Consulta consulta);
 
 }
