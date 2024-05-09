@@ -1,4 +1,4 @@
-package br.com.laudai.controller.dto;
+package br.com.laudai.web.dto.output;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
