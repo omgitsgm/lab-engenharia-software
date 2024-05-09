@@ -1,4 +1,4 @@
-package br.com.laudai.controller.dto;
+package br.com.laudai.web.dto.input;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Future;
