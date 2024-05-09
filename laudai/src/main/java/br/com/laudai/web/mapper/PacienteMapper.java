@@ -1,19 +1,18 @@
 package br.com.laudai.web.mapper;
 
-import br.com.laudai.web.dto.input.PacienteInput;
 import br.com.laudai.domain.model.Paciente;
-import org.springframework.stereotype.Component;
+import br.com.laudai.web.dto.input.PacienteInput;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@Component
-public class PacienteMapper {
+import java.util.ArrayList;
 
-    public Paciente toPaciente(PacienteInput pacienteInput) {
-        return new Paciente(
-                pacienteInput.nome(),
-                pacienteInput.cpf(),
-                pacienteInput.email(),
-                pacienteInput.telefone()
-        );
-    }
+@Mapper(componentModel = "spring", imports = ArrayList.class)
+public interface PacienteMapper {
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "consultas", expression = "java(new ArrayList<>())")
+    Paciente toPaciente(PacienteInput pacienteInput);
+
 
 }
