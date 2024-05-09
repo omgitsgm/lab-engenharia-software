@@ -1,11 +1,10 @@
 package br.com.laudai.web.mapper;
 
+import br.com.laudai.domain.model.Laboratorio;
 import br.com.laudai.web.dto.input.LaboratorioInput;
 import br.com.laudai.web.dto.output.LaboratorioOutput;
-import br.com.laudai.domain.model.Laboratorio;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
