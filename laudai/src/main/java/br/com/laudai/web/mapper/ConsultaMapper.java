@@ -1,6 +1,6 @@
-package br.com.laudai.controller.util;
+package br.com.laudai.web.mapper;
 
-import br.com.laudai.controller.dto.ConsultaOutput;
+import br.com.laudai.web.dto.output.ConsultaOutput;
 import br.com.laudai.domain.model.Consulta;
 import org.springframework.stereotype.Component;
 

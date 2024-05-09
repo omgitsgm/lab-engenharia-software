@@ -1,6 +1,6 @@
-package br.com.laudai.controller.util;
+package br.com.laudai.web.mapper;
 
-import br.com.laudai.controller.dto.PacienteInput;
+import br.com.laudai.web.dto.input.PacienteInput;
 import br.com.laudai.domain.model.Paciente;
 import org.springframework.stereotype.Component;
 
