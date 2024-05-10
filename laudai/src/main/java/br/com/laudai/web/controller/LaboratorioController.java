@@ -45,6 +45,16 @@ public class LaboratorioController {
 
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<LaboratorioOutput> findById(@PathVariable Integer id) {
+
+        Laboratorio laboratorio = laboratorioService.findById(id);
+        LaboratorioOutput laboratorioOutput = laboratorioMapper.toLaboratorioOutput(laboratorio);
+
+        return ResponseEntity.ok().body(laboratorioOutput);
+
+    }
+
     @PostMapping("/{laboratorioId}/exame")
     @ResponseStatus(code = HttpStatus.CREATED, reason = "Exame adicionado com sucesso.")
     public void adicionarExame(@PathVariable Integer laboratorioId, @RequestBody @Valid ExameInput exameInput) {
