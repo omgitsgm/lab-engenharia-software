@@ -4,7 +4,6 @@ import br.com.laudai.domain.exception.ExameDuplicadoException;
 import br.com.laudai.domain.exception.LaboratorioInexistenteException;
 import br.com.laudai.domain.model.Exame;
 import br.com.laudai.domain.model.Laboratorio;
-import br.com.laudai.infra.repository.ExameRepository;
 import br.com.laudai.infra.repository.LaboratorioRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

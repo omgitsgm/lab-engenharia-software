@@ -42,7 +42,7 @@ public class ConsultaServiceImpl implements ConsultaService{
 
         // CHECAR SE O EXAME ESTÁ DISPONÍVEL NAQUELE LABORATÓRIO
         if(!laboratorio.getExames().contains(exame)){
-            throw new ExameIndisponivelException();
+            throw new ExameIndisponivelException(exame.getNome(), laboratorio.getNome());
         }
 
         Consulta consulta = new Consulta(paciente, exame, laboratorio, dataHorario);

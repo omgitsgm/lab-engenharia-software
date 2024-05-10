@@ -1,7 +1,6 @@
 package br.com.laudai.domain.service;
 
 import br.com.laudai.domain.exception.ExameDuplicadoException;
-import br.com.laudai.domain.exception.ExameIndisponivelException;
 import br.com.laudai.domain.exception.ExameInexistenteException;
 import br.com.laudai.domain.model.Exame;
 import br.com.laudai.infra.repository.ExameRepository;
