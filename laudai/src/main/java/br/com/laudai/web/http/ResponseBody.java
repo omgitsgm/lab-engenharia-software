@@ -15,8 +15,4 @@ public class ResponseBody {
     private String message;
     private List<Object> results;
 
-    public ResponseBody(Integer httpStatusCode, String message) {
-        this.httpStatusCode = httpStatusCode;
-        this.message = message;
-    }
 }
