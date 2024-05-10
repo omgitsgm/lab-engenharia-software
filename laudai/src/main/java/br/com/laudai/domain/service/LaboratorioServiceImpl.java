@@ -1,5 +1,7 @@
 package br.com.laudai.domain.service;
 
+import br.com.laudai.domain.exception.ExameDuplicadoException;
+import br.com.laudai.domain.exception.LaboratorioInexistenteException;
 import br.com.laudai.domain.model.Exame;
 import br.com.laudai.domain.model.Laboratorio;
 import br.com.laudai.infra.repository.ExameRepository;
@@ -26,9 +28,8 @@ public class LaboratorioServiceImpl implements LaboratorioService{
 
     @Override
     public Laboratorio findById(Integer id) {
-        // CRIAR EXCEPTION
         return laboratorioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Não existe um laboratório com o id " + id + "."));
+                .orElseThrow(() -> new LaboratorioInexistenteException(id));
     }
 
     @Override
@@ -36,18 +37,13 @@ public class LaboratorioServiceImpl implements LaboratorioService{
     public void adicionarExame(Integer laboratorioId, String nomeExame) {
 
         Laboratorio laboratorio = findById(laboratorioId);
-        System.out.println("ID DO LABORATORIO = " + laboratorio.getId());
 
         Exame exame = exameService.findByNome(nomeExame);
-        System.out.println("ID DO EXAME = " + exame.getId());
 
-        System.out.println(exame.getLaboratorios());
         exame.getLaboratorios().add(laboratorio);
-        System.out.println(exame.getLaboratorios());
 
-        if(laboratorio.getExames().contains(exame)){
-            throw new RuntimeException("Este exame já está adicionado na lista de exames do laboratório.");
-        }
+        if(laboratorio.getExames().contains(exame))
+            throw new ExameDuplicadoException(nomeExame, laboratorio.getNome());
 
         laboratorio.getExames().add(exame);
 

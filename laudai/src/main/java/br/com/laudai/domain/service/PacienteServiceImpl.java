@@ -1,5 +1,6 @@
 package br.com.laudai.domain.service;
 
+import br.com.laudai.domain.exception.PacienteInexistenteException;
 import br.com.laudai.domain.model.Paciente;
 import br.com.laudai.infra.repository.PacienteRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +23,8 @@ public class PacienteServiceImpl implements PacienteService {
 
     @Override
     public Paciente findById(Integer id) {
-        // CRIAR EXCEPTION PARA CASO NÃO ENCONTRE O PACIENTE
         return pacienteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Não existe um paciente com id " + id + "."));
+                .orElseThrow(() -> new PacienteInexistenteException(id));
     }
 
     @Override

@@ -1,5 +1,8 @@
 package br.com.laudai.domain.service;
 
+import br.com.laudai.domain.exception.ExameDuplicadoException;
+import br.com.laudai.domain.exception.ExameIndisponivelException;
+import br.com.laudai.domain.exception.ExameInexistenteException;
 import br.com.laudai.domain.model.Exame;
 import br.com.laudai.infra.repository.ExameRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,22 +26,20 @@ public class ExameServiceImpl implements ExameService {
 
     @Override
     public Exame findById(Integer id) {
-        // CRIAR EXCEPTION PARA CASO NÃO ENCONTRE O EXAME
         return exameRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Não existe um Exame com id " + id + "."));
+                .orElseThrow(() -> new ExameInexistenteException(id));
     }
 
     @Override
     public Exame findByNome(String nome) {
-        // Criar Exception
         return exameRepository.findByNomeEqualsIgnoreCase(nome)
-                .orElseThrow(() -> new RuntimeException("Não existe um exame com o nome " + nome + "."));
+                .orElseThrow(() -> new ExameInexistenteException(nome));
     }
 
     @Override
     public void existsByNome(String nome) {
-        if(exameRepository.existsByNome(nome))
-            throw new RuntimeException("Já existe um exame com esse nome.");
+        if(exameRepository.existsByNome(nome).equals(Boolean.TRUE))
+            throw new ExameDuplicadoException(nome);
 
     }
 }

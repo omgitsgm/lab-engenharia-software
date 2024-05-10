@@ -1,5 +1,9 @@
 package br.com.laudai.domain.service;
 
+import br.com.laudai.domain.exception.AcessoNegadoException;
+import br.com.laudai.domain.exception.ConsultaIndisponivelException;
+import br.com.laudai.domain.exception.ConsultaInexistenteException;
+import br.com.laudai.domain.exception.ExameIndisponivelException;
 import br.com.laudai.domain.model.Consulta;
 import br.com.laudai.domain.model.Exame;
 import br.com.laudai.domain.model.Laboratorio;
@@ -32,13 +36,13 @@ public class ConsultaServiceImpl implements ConsultaService{
         // CHECAR SE NÃO TEM UMA CONSULTA AGENDADA NESSE LABORATÓRIO NA MESMA DATA E HORÁRIO
         laboratorio.getConsultas().forEach(consulta -> {
             if(consulta.getDataHorario().equals(dataHorario))
-                throw new RuntimeException("Não é possível agendar uma consulta nesse laboratório nesta data e horário.");
+                throw new ConsultaIndisponivelException();
         });
 
 
         // CHECAR SE O EXAME ESTÁ DISPONÍVEL NAQUELE LABORATÓRIO
         if(!laboratorio.getExames().contains(exame)){
-            throw new RuntimeException("Este exame não está disponível nesse laboratório.");
+            throw new ExameIndisponivelException();
         }
 
         Consulta consulta = new Consulta(paciente, exame, laboratorio, dataHorario);
@@ -60,7 +64,7 @@ public class ConsultaServiceImpl implements ConsultaService{
         Paciente paciente = pacienteService.findById(pacienteId);
 
         if(!paciente.getConsultas().contains(consulta))
-            throw new RuntimeException("Acesso negado. Não é possível realizar essa operação.");
+            throw new AcessoNegadoException();
 
         paciente.getConsultas().remove(consulta);
         laboratorioService.findById(consulta.getLaboratorio().getId())
@@ -74,8 +78,7 @@ public class ConsultaServiceImpl implements ConsultaService{
 
     @Override
     public Consulta findById(Integer id) {
-        return consultaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Não foi possível encontrar uma consulta com id " + id + "."));
+        return consultaRepository.findById(id).orElseThrow(ConsultaInexistenteException::new);
     }
 
     @Override
