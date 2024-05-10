@@ -7,6 +7,8 @@ import br.com.laudai.infra.repository.ExameRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ExameServiceImpl implements ExameService {
@@ -35,6 +37,11 @@ public class ExameServiceImpl implements ExameService {
     public Exame findByNome(String nome) {
         return exameRepository.findByNomeEqualsIgnoreCase(nome)
                 .orElseThrow(() -> new ExameInexistenteException(nome));
+    }
+
+    @Override
+    public List<Exame> findAll() {
+        return exameRepository.findAll();
     }
 
 }
