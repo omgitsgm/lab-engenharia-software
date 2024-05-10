@@ -19,9 +19,9 @@ public class LaboratorioServiceImpl implements LaboratorioService{
     private final ExameService exameService;
 
     @Override
-    public void save(Laboratorio laboratorio) {
+    public Laboratorio save(Laboratorio laboratorio) {
 
-        laboratorioRepository.save(laboratorio);
+        return laboratorioRepository.save(laboratorio);
 
     }
 

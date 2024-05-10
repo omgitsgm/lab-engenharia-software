@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface LaboratorioService {
 
-    void save(Laboratorio laboratorio);
+    Laboratorio save(Laboratorio laboratorio);
 
     Laboratorio findById(Integer id);
 
