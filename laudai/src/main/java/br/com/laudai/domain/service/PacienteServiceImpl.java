@@ -1,5 +1,7 @@
 package br.com.laudai.domain.service;
 
+import br.com.laudai.domain.exception.PacienteCpfDuplicadoException;
+import br.com.laudai.domain.exception.PacienteEmailDuplicadoException;
 import br.com.laudai.domain.exception.PacienteInexistenteException;
 import br.com.laudai.domain.model.Paciente;
 import br.com.laudai.infra.repository.PacienteRepository;
@@ -15,9 +17,14 @@ public class PacienteServiceImpl implements PacienteService {
     private final PacienteRepository pacienteRepository;
 
     @Override
-    public void save(Paciente paciente) {
+    public Paciente save(Paciente paciente) {
 
-        pacienteRepository.save(paciente);
+        if(pacienteRepository.existsByCpf(paciente.getCpf()).equals(Boolean.TRUE))
+            throw new PacienteCpfDuplicadoException(paciente.getCpf());
+        else if(pacienteRepository.existsByEmail(paciente.getEmail()).equals(Boolean.TRUE))
+            throw new PacienteEmailDuplicadoException(paciente.getEmail());
+
+        return pacienteRepository.save(paciente);
 
     }
 

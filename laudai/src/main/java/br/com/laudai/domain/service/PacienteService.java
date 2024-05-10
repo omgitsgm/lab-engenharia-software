@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PacienteService {
 
-    void save(Paciente paciente);
+    Paciente save(Paciente paciente);
 
     Paciente findById(Integer id);
 
