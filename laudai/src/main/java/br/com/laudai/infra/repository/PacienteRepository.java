@@ -8,6 +8,4 @@ public interface PacienteRepository extends JpaRepository<Paciente, Integer> {
     Boolean existsByCpf(String cpf);
     Boolean existsByEmail(String email);
 
-    void deleteByCpf(String cpf);
-
 }
