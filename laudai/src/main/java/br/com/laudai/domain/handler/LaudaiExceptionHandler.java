@@ -105,4 +105,20 @@ public class LaudaiExceptionHandler extends ResponseEntityExceptionHandler {
         return problemDetail;
     }
 
+    @ExceptionHandler(PacienteCpfDuplicadoException.class)
+    public ProblemDetail handlePacienteCpfDuplicadoException(PacienteCpfDuplicadoException exception) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.CONFLICT);
+        problemDetail.setTitle(exception.getMessage());
+        problemDetail.setType(URI.create("/errors/paciente-cpf-duplicado"));
+        return problemDetail;
+    }
+
+    @ExceptionHandler(PacienteEmailDuplicadoException.class)
+    public ProblemDetail handlePacienteEmailDuplicadoException(PacienteEmailDuplicadoException exception) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.CONFLICT);
+        problemDetail.setTitle(exception.getMessage());
+        problemDetail.setType(URI.create("/errors/paciente-email-duplicado"));
+        return problemDetail;
+    }
+
 }
