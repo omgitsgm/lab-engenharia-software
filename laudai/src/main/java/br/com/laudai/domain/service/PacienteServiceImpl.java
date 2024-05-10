@@ -34,16 +34,4 @@ public class PacienteServiceImpl implements PacienteService {
                 .orElseThrow(() -> new PacienteInexistenteException(id));
     }
 
-    @Override
-    public void deleteByCpf(String cpf) {
-
-        pacienteRepository.deleteByCpf(cpf);
-
-    }
-
-    @Override
-    public List<Paciente> getAll() {
-        return pacienteRepository.findAll();
-    }
-
 }

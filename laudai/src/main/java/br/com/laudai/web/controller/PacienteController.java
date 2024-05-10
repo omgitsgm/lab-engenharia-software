@@ -42,17 +42,13 @@ public class PacienteController {
 
     }
 
-    @DeleteMapping("/{cpf}")
-    public void deleteByCpf(@PathVariable String cpf) {
+    @GetMapping("/{id}")
+    public ResponseEntity<PacienteOutput> findById(@PathVariable Integer id) {
 
-        pacienteService.deleteByCpf(cpf);
+        Paciente paciente = pacienteService.findById(id);
+        PacienteOutput pacienteOutput = pacienteMapper.toPacienteOutput(paciente);
 
-    }
-
-    @GetMapping
-    public List<Paciente> getAll() {
-
-        return pacienteService.getAll();
+        return ResponseEntity.ok(pacienteOutput);
 
     }
 
