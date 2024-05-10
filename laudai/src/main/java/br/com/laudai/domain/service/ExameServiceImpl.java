@@ -14,12 +14,14 @@ public class ExameServiceImpl implements ExameService {
     private final ExameRepository exameRepository;
 
     @Override
-    public void cadastrar(String nome) {
+    public Exame cadastrar(String nome) {
 
-        existsByNome(nome);
+        if(exameRepository.existsByNome(nome).equals(Boolean.TRUE))
+            throw new ExameDuplicadoException(nome);
 
         Exame exame = new Exame(nome);
-        exameRepository.save(exame);
+
+        return exameRepository.save(exame);
 
     }
 
@@ -35,10 +37,4 @@ public class ExameServiceImpl implements ExameService {
                 .orElseThrow(() -> new ExameInexistenteException(nome));
     }
 
-    @Override
-    public void existsByNome(String nome) {
-        if(exameRepository.existsByNome(nome).equals(Boolean.TRUE))
-            throw new ExameDuplicadoException(nome);
-
-    }
 }
