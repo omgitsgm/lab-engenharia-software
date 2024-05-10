@@ -28,8 +28,8 @@ public class PacienteController {
     @PostMapping
     public ResponseEntity<ResponseBody> save(@RequestBody @Valid PacienteInput pacienteInput) {
 
-        Paciente pacienteEntity = pacienteService.save(pacienteMapper.toPaciente(pacienteInput));
-        PacienteOutput pacienteOutput = pacienteMapper.toPacienteOutput(pacienteEntity);
+        Paciente paciente = pacienteService.save(pacienteMapper.toPaciente(pacienteInput));
+        PacienteOutput pacienteOutput = pacienteMapper.toPacienteOutput(paciente);
 
         URI uri = URI.create(PACIENTE_URI + pacienteOutput.id());
         ResponseBody responseBody = new ResponseBody(
