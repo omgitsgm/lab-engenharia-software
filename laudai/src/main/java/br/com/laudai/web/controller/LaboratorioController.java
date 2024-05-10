@@ -1,12 +1,14 @@
 package br.com.laudai.web.controller;
 
-import br.com.laudai.web.dto.input.ExameInput;
-import br.com.laudai.web.dto.input.LaboratorioInput;
-import br.com.laudai.web.dto.output.LaboratorioOutput;
-import br.com.laudai.web.http.ResponseBody;
-import br.com.laudai.web.mapper.LaboratorioMapper;
+import br.com.laudai.domain.model.Exame;
 import br.com.laudai.domain.model.Laboratorio;
 import br.com.laudai.domain.service.LaboratorioService;
+import br.com.laudai.web.dto.input.LaboratorioInput;
+import br.com.laudai.web.dto.output.ExameOutput;
+import br.com.laudai.web.dto.output.LaboratorioOutput;
+import br.com.laudai.web.http.ResponseBody;
+import br.com.laudai.web.mapper.ExameMapper;
+import br.com.laudai.web.mapper.LaboratorioMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,7 @@ public class LaboratorioController {
 
     private final LaboratorioService laboratorioService;
     private final LaboratorioMapper laboratorioMapper;
+    private final ExameMapper exameMapper;
 
     private static final String LABORATORIO_URI = "/laboratorio/";
 
@@ -55,16 +58,21 @@ public class LaboratorioController {
 
     }
 
-    @PostMapping("/{laboratorioId}/exame")
-    @ResponseStatus(code = HttpStatus.CREATED, reason = "Exame adicionado com sucesso.")
-    public void adicionarExame(@PathVariable Integer laboratorioId, @RequestBody @Valid ExameInput exameInput) {
+    @GetMapping("/{id}/exame")
+    public ResponseEntity<List<ExameOutput>> findExamesDisponiveis(@PathVariable Integer id) {
 
-        laboratorioService.adicionarExame(laboratorioId, exameInput.nome());
+        List<Exame> examesDisponiveis = laboratorioService.findExamesDisponiveis(id);
+
+        List<ExameOutput> exameOutputList = examesDisponiveis.stream().map(exameMapper::toExameOutput).toList();
+
+        return ResponseEntity.ok(exameOutputList);
 
     }
 
+
+
     @GetMapping("/exame")
-    public ResponseEntity<List<LaboratorioOutput>> buscarPorExame(@RequestParam(name = "nome") String nome) {
+    public ResponseEntity<List<LaboratorioOutput>> findByExame(@RequestParam(name = "nome") String nome) {
 
         List<Laboratorio> laboratorios = laboratorioService.findAllByExame(nome);
 
