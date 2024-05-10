@@ -3,6 +3,7 @@ package br.com.laudai.web.controller;
 import br.com.laudai.web.dto.input.ExameInput;
 import br.com.laudai.web.dto.input.LaboratorioInput;
 import br.com.laudai.web.dto.output.LaboratorioOutput;
+import br.com.laudai.web.http.ResponseBody;
 import br.com.laudai.web.mapper.LaboratorioMapper;
 import br.com.laudai.domain.model.Laboratorio;
 import br.com.laudai.domain.service.LaboratorioService;
@@ -12,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,11 +25,23 @@ public class LaboratorioController {
     private final LaboratorioService laboratorioService;
     private final LaboratorioMapper laboratorioMapper;
 
-    @PostMapping
-    @ResponseStatus(code = HttpStatus.CREATED, reason = "Laboratório cadastrado com sucesso.")
-    public void save(@RequestBody @Valid LaboratorioInput laboratorioInput) {
+    private static final String LABORATORIO_URI = "/laboratorio/";
 
-        laboratorioService.save(laboratorioMapper.toLaboratorio(laboratorioInput));
+    @PostMapping
+    public ResponseEntity<ResponseBody> save(@RequestBody @Valid LaboratorioInput laboratorioInput) {
+
+        Laboratorio laboratorio = laboratorioService.save(laboratorioMapper.toLaboratorio(laboratorioInput));
+        LaboratorioOutput laboratorioOutput = laboratorioMapper.toLaboratorioOutput(laboratorio);
+
+        URI uri = URI.create(LABORATORIO_URI + laboratorioOutput.id());
+
+        ResponseBody responseBody = new ResponseBody(
+                HttpStatus.CREATED.value(),
+                "Laboratório cadastrado com sucesso.",
+                new ArrayList<>(List.of(laboratorioOutput))
+        );
+
+        return ResponseEntity.created(uri).body(responseBody);
 
     }
 
