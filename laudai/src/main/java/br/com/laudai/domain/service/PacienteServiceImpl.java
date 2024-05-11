@@ -3,10 +3,13 @@ package br.com.laudai.domain.service;
 import br.com.laudai.domain.exception.PacienteCpfDuplicadoException;
 import br.com.laudai.domain.exception.PacienteEmailDuplicadoException;
 import br.com.laudai.domain.exception.PacienteInexistenteException;
+import br.com.laudai.domain.model.Consulta;
 import br.com.laudai.domain.model.Paciente;
 import br.com.laudai.infra.repository.PacienteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +33,13 @@ public class PacienteServiceImpl implements PacienteService {
     public Paciente findById(Integer id) {
         return pacienteRepository.findById(id)
                 .orElseThrow(() -> new PacienteInexistenteException(id));
+    }
+
+    @Override
+    public List<Consulta> getConsultas(Integer pacienteId) {
+        Paciente paciente = findById(pacienteId);
+
+        return paciente.getConsultas();
     }
 
 }

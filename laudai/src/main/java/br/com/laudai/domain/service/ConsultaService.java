@@ -3,7 +3,6 @@ package br.com.laudai.domain.service;
 import br.com.laudai.domain.model.Consulta;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public interface ConsultaService {
 
@@ -13,5 +12,4 @@ public interface ConsultaService {
 
     Consulta findById(Integer id);
 
-    List<Consulta> visualizarConsultas(Integer pacienteId);
 }

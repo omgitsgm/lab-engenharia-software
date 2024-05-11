@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -79,12 +78,4 @@ public class ConsultaServiceImpl implements ConsultaService{
         return consultaRepository.findById(id).orElseThrow(ConsultaInexistenteException::new);
     }
 
-    @Override
-    public List<Consulta> visualizarConsultas(Integer pacienteId) {
-
-        Paciente paciente = pacienteService.findById(pacienteId);
-
-        return consultaRepository.findAllByPaciente(paciente);
-
-    }
 }

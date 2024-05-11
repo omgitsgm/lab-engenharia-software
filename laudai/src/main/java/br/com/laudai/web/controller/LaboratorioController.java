@@ -59,7 +59,7 @@ public class LaboratorioController {
     }
 
     @GetMapping("/{id}/exame")
-    public ResponseEntity<List<ExameOutput>> findExamesDisponiveis(@PathVariable Integer id) {
+    public ResponseEntity<List<ExameOutput>> getExamesDisponiveis(@PathVariable Integer id) {
 
         List<Exame> examesDisponiveis = laboratorioService.findExamesDisponiveis(id);
 
@@ -72,7 +72,7 @@ public class LaboratorioController {
 
 
     @GetMapping("/exame")
-    public ResponseEntity<List<LaboratorioOutput>> findByExame(@RequestParam(name = "nome") String nome) {
+    public ResponseEntity<List<LaboratorioOutput>> findAllByExame(@RequestParam(name = "nome") String nome) {
 
         List<Laboratorio> laboratorios = laboratorioService.findAllByExame(nome);
 

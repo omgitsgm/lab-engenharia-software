@@ -57,14 +57,4 @@ public class ConsultaController {
         return ResponseEntity.ok(responseBody);
     }
 
-    @GetMapping
-    public ResponseEntity<List<ConsultaOutput>> visualizarConsultas(@PathVariable Integer pacienteId) {
-
-        List<Consulta> consultas = consultaService.visualizarConsultas(pacienteId);
-
-        List<ConsultaOutput> consultaOutputList = consultas.stream().map(consultaMapper::toConsultaOutput).toList();
-
-        return ResponseEntity.ok(consultaOutputList);
-    }
-
 }
