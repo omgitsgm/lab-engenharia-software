@@ -2,6 +2,7 @@ package br.com.laudai.web.mapper;
 
 import br.com.laudai.domain.model.Paciente;
 import br.com.laudai.web.dto.input.PacienteInput;
+import br.com.laudai.web.dto.output.PacienteOutput;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -13,6 +14,8 @@ public interface PacienteMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "consultas", expression = "java(new ArrayList<>())")
     Paciente toPaciente(PacienteInput pacienteInput);
+
+    PacienteOutput toPacienteOutput(Paciente paciente);
 
 
 }

@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PacienteRepository extends JpaRepository<Paciente, Integer> {
 
-    void deleteByCpf(String cpf);
+    Boolean existsByCpf(String cpf);
+    Boolean existsByEmail(String email);
 
 }

@@ -1,9 +1,13 @@
 package br.com.laudai.domain.service;
 
+import br.com.laudai.domain.exception.ExameDuplicadoException;
+import br.com.laudai.domain.exception.ExameInexistenteException;
 import br.com.laudai.domain.model.Exame;
 import br.com.laudai.infra.repository.ExameRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -12,33 +16,32 @@ public class ExameServiceImpl implements ExameService {
     private final ExameRepository exameRepository;
 
     @Override
-    public void cadastrar(String nome) {
+    public Exame cadastrar(String nome) {
 
-        existsByNome(nome);
+        if(exameRepository.existsByNome(nome).equals(Boolean.TRUE))
+            throw new ExameDuplicadoException(nome);
 
         Exame exame = new Exame(nome);
-        exameRepository.save(exame);
+
+        return exameRepository.save(exame);
 
     }
 
     @Override
     public Exame findById(Integer id) {
-        // CRIAR EXCEPTION PARA CASO NÃO ENCONTRE O EXAME
         return exameRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Não existe um Exame com id " + id + "."));
+                .orElseThrow(() -> new ExameInexistenteException(id));
     }
 
     @Override
     public Exame findByNome(String nome) {
-        // Criar Exception
         return exameRepository.findByNomeEqualsIgnoreCase(nome)
-                .orElseThrow(() -> new RuntimeException("Não existe um exame com o nome " + nome + "."));
+                .orElseThrow(() -> new ExameInexistenteException(nome));
     }
 
     @Override
-    public void existsByNome(String nome) {
-        if(exameRepository.existsByNome(nome))
-            throw new RuntimeException("Já existe um exame com esse nome.");
-
+    public List<Exame> findAll() {
+        return exameRepository.findAll();
     }
+
 }

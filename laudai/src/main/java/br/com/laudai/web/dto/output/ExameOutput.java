@@ -1,8 +1,9 @@
 package br.com.laudai.web.dto.output;
 
-public record LaboratorioOutput(
+public record ExameOutput(
 
         Integer id,
         String nome
 
-) { }
+) {
+}

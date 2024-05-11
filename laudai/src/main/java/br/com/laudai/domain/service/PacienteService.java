@@ -1,18 +1,16 @@
 package br.com.laudai.domain.service;
 
+import br.com.laudai.domain.model.Consulta;
 import br.com.laudai.domain.model.Paciente;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 public interface PacienteService {
 
-    void save(Paciente paciente);
+    Paciente save(Paciente paciente);
 
-    Paciente findById(Integer id);
+    Paciente findById(Integer pacienteId);
 
-    void deleteByCpf(String cpf);
-
-    List<Paciente> getAll();
+    List<Consulta> getConsultas(Integer pacienteId);
 
 }
