@@ -45,9 +45,16 @@ public class ConsultaController {
     }
 
     @DeleteMapping("/{consultaId}")
-    @ResponseStatus(code = HttpStatus.OK, reason = "Consulta cancelada com sucesso.")
-    public void cancelar(@PathVariable Integer pacienteId, @PathVariable Integer consultaId) {
+    public ResponseEntity<ResponseBody> cancelar(@PathVariable Integer pacienteId, @PathVariable Integer consultaId) {
         consultaService.cancelar(pacienteId, consultaId);
+
+        ResponseBody responseBody = new ResponseBody(
+                HttpStatus.OK.value(),
+                "Consulta cancelada com sucesso.",
+                new ArrayList<>(List.of(URI.create("/paciente/" + pacienteId + "/consulta")))
+        );
+
+        return ResponseEntity.ok(responseBody);
     }
 
     @GetMapping

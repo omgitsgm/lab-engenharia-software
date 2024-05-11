@@ -67,10 +67,8 @@ public class ConsultaServiceImpl implements ConsultaService{
             throw new AcessoNegadoException();
 
         paciente.getConsultas().remove(consulta);
-        laboratorioService.findById(consulta.getLaboratorio().getId())
-                .getConsultas().remove(consulta);
-        exameService.findById(consulta.getExame().getId())
-                .getConsultas().remove(consulta);
+        laboratorioService.findById(consulta.getLaboratorio().getId()).getConsultas().remove(consulta);
+        exameService.findById(consulta.getExame().getId()).getConsultas().remove(consulta);
 
         consultaRepository.delete(consulta);
 
