@@ -27,7 +27,7 @@ public class ConsultaServiceImpl implements ConsultaService{
 
     @Override
     @Transactional
-    public void agendar(Integer pacienteId, Integer exameId, Integer laboratorioId, LocalDateTime dataHorario) {
+    public Consulta agendar(Integer pacienteId, Integer exameId, Integer laboratorioId, LocalDateTime dataHorario) {
 
         Paciente paciente = pacienteService.findById(pacienteId);
         Exame exame = exameService.findById(exameId);
@@ -51,7 +51,7 @@ public class ConsultaServiceImpl implements ConsultaService{
         exame.getConsultas().add(consulta);
         laboratorio.getConsultas().add(consulta);
 
-        consultaRepository.save(consulta);
+        return consultaRepository.save(consulta);
 
     }
 

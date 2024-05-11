@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ConsultaService {
 
-    void agendar(Integer pacienteId, Integer exameId, Integer laboratorioId, LocalDateTime dataHorario);
+    Consulta agendar(Integer pacienteId, Integer exameId, Integer laboratorioId, LocalDateTime dataHorario);
 
     void cancelar(Integer pacienteId, Integer consultaId);
 
