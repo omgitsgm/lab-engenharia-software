@@ -13,4 +13,9 @@ public class RotasController {
         return "index.html";
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "login.html";
+    }
+
 }
