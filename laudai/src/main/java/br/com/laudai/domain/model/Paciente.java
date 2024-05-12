@@ -27,7 +27,7 @@ public class Paciente {
     private String email;
 
     @Column(nullable = false)
-    private String telefone;
+    private String senha;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Consulta> consultas;
