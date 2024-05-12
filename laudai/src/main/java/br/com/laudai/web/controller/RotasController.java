@@ -18,4 +18,9 @@ public class RotasController {
         return "login.html";
     }
 
+    @GetMapping("/cadastro")
+    public String cadastro() {
+        return "cadastro.html";
+    }
+
 }
