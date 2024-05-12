@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Cadastro | Laud.AI</title>
+    <link rel="shortcut icon" type="image/jpg" href="./img/Laud.AILogobyDesigner.png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        .form-signin {
+            max-width: 330px;
+            padding: 1rem;
+        }
+
+        .form-signin .form-floating:focus-within {
+            z-index: 2;
+        }
+
+        .form-signin input[type="email"] {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+    </style>
+</head>
+<body class="d-flex align-items-center py-4 bg-body-tertiary">
+    <main class="form-signin w-100 m-auto">
+        <form>
+            <div class="text-center">
+                <img class="mb-2 center" src="./img/Laud.AILogobyDesigner.png" alt="Logo da Laud.AI" width="100">
+                <h1 class="h3 mb-4 fw-normal">Cadastre-se</h1>
+            </div>
+
+            <div class="form-floating">
+                <input type="text" class="form-control" required="required" id="floatingNomeInput" placeholder="João da Silva">
+                <label for="floatingNomeInput">Nome</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" required="required" maxlength="11" class="form-control" id="floatingCpfInput" placeholder="123.456.789-10">
+                <label for="floatingCpfInput">CPF</label>
+            </div>
+            <div class="form-floating">
+                <input type="tel" required="required" maxlength="11" class="form-control" id="floatingTelefoneInput" placeholder="11912345678">
+                <label for="floatingTelefoneInput">Telefone</label>
+            </div>
+            <div class="form-floating">
+                <input type="email" required="required" class="form-control" id="floatingEmailInput" placeholder="nome@exemplo.com">
+                <label for="floatingEmailInput">Email</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" required="required" class="form-control" id="floatingPassword" placeholder="Senha">
+                <label for="floatingPassword">Senha</label>
+            </div>
+
+            <button class="btn btn-primary w-100 py-2 mb-2" type="submit">Cadastrar-se</button>
+            <button class="btn btn-secondary w-100 py-2" type="button">Já tenho uma conta</button>
+        </form>
+        <div class="container">
+            <footer class="py-3 my-4 text-center">
+                <img src="./img/Laud.AILogobyDesigner.png" alt="Logotipo da Laud.AI" width="50">
+                <p class="text-center text-body-secondary">&copy; 2024 Laud.AI, Inc</p>
+            </footer>
+        </div>
+    </main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
