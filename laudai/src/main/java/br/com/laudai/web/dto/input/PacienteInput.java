@@ -2,7 +2,7 @@ package br.com.laudai.web.dto.input;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.br.CPF;
 
 public record PacienteInput(
@@ -18,8 +18,8 @@ public record PacienteInput(
         @NotBlank
         String email,
 
-        @Pattern(regexp = "^\\d{2}\\d{4,5}\\d{4}$")
+        @Size(min = 8, max = 100)
         @NotBlank
-        String telefone
+        String senha
 
 ) { }
