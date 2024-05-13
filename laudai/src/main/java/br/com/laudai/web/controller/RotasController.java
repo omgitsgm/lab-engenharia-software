@@ -23,4 +23,9 @@ public class RotasController {
         return "cadastro.html";
     }
 
+    @GetMapping("/pagina-inicial")
+    public String paginaInicial() {
+        return "pagina-inicial.html";
+    }
+
 }
