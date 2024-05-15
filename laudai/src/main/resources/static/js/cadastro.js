@@ -34,7 +34,6 @@ async function savePaciente(json) {
     const data = await response.json();
     console.log(data);
 
-    divErros.innerHTML = "";
     if(!response.ok) {
         console.log(data.title);
 
@@ -45,7 +44,11 @@ async function savePaciente(json) {
             // PRECISA EXIBIR OS CAMPOS INVÁLIDOS
         }
 
+        divErros.innerHTML = "";
         divErros.appendChild(paragraphElement);
+    } else {
+        window.alert(data.title);
+        window.location.href = url;
     }
 }
 
