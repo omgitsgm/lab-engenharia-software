@@ -28,4 +28,14 @@ public class RotasController {
         return "pagina-inicial.html";
     }
 
+    @GetMapping("/minhas-consultas")
+    public String minhasConsultas() {
+        return "minhas-consultas.html";
+    }
+
+    @GetMapping("/agendar-consulta")
+    public String agendarConsulta() {
+        return "agendar-consulta.html";
+    }
+
 }
