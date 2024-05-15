@@ -1,8 +1,6 @@
 package br.com.laudai.domain.service;
 
-import br.com.laudai.domain.exception.PacienteCpfDuplicadoException;
-import br.com.laudai.domain.exception.PacienteEmailDuplicadoException;
-import br.com.laudai.domain.exception.PacienteInexistenteException;
+import br.com.laudai.domain.exception.*;
 import br.com.laudai.domain.model.Consulta;
 import br.com.laudai.domain.model.Paciente;
 import br.com.laudai.infra.repository.PacienteRepository;
@@ -40,6 +38,12 @@ public class PacienteServiceImpl implements PacienteService {
         Paciente paciente = findById(pacienteId);
 
         return paciente.getConsultas();
+    }
+
+    @Override
+    public Paciente findByEmailAndSenha(String email, String senha) {
+        return pacienteRepository.findByEmailAndSenha(email, senha)
+                .orElseThrow(AutenticacaoException::new);
     }
 
 }

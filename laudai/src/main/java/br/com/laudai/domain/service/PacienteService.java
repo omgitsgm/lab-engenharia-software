@@ -13,4 +13,6 @@ public interface PacienteService {
 
     List<Consulta> getConsultas(Integer pacienteId);
 
+    Paciente findByEmailAndSenha(String email, String senha);
+
 }
