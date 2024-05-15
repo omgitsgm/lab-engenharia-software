@@ -1,5 +1,7 @@
 const url = "http://localhost:8080";
 const sairButton = document.querySelector('[data-sair]');
+const minhasConsultasButton = document.querySelector('[data-minhas-consultas]');
+const agendarButton = document.querySelector('[data-agendar]');
 
 sairButton.addEventListener("click", (e) => {
     e.preventDefault();
@@ -9,6 +11,24 @@ sairButton.addEventListener("click", (e) => {
 
     // Redireciono o usuário pra página inicial do Laud.AI
     window.location.href = url;
+
+
+})
+
+minhasConsultasButton.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    // Redireciono o usuário pra página inicial do Laud.AI
+    window.location.href = `${url}/minhas-consultas`;
+
+
+})
+
+agendarButton.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    // Redireciono o usuário pra página inicial do Laud.AI
+    window.location.href = `${url}/agendar-consulta`;
 
 
 })
