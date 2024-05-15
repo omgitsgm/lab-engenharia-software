@@ -1,23 +1,22 @@
 package br.com.laudai.web.controller;
 
+import br.com.laudai.domain.model.Consulta;
+import br.com.laudai.domain.service.ConsultaService;
 import br.com.laudai.web.dto.input.ConsultaInput;
 import br.com.laudai.web.dto.output.ConsultaOutput;
 import br.com.laudai.web.http.ResponseBody;
 import br.com.laudai.web.mapper.ConsultaMapper;
-import br.com.laudai.domain.model.Consulta;
-import br.com.laudai.domain.service.ConsultaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/paciente/{pacienteId}/consulta")
 public class ConsultaController {
