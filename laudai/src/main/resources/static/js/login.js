@@ -1,29 +1,25 @@
 const url = "http://localhost:8080";
 const form = document.querySelector('[data-form]');
-const divErros = document.querySelector('#div-erros')
+const divErros = document.querySelector('[data-erro]');
 
-form.addEventListener("submit", async (e) => {
+form.addEventListener("submit", async(e) => {
     e.preventDefault();
 
     const dados = {
-        "nome": e.target.elements["nome"].value,
-        "cpf": e.target.elements["cpf"].value,
         "email": e.target.elements["email"].value,
         "senha": e.target.elements["senha"].value,
     }
 
     let json = JSON.stringify(dados);
-    console.log("12:31")
     console.log(json);
 
-    savePaciente(json);
-
+    autentica(json);
 
 })
 
-async function savePaciente(json) {
+async function autentica(json) {
 
-    const response = await fetch(`${url}/paciente`, {
+    const response = await fetch(`${url}/autenticacao`, {
         method: "POST",
         body: json,
         headers: {
@@ -40,15 +36,13 @@ async function savePaciente(json) {
         const paragraphElement = document.createElement("p");
         paragraphElement.innerText = data.title;
 
-        if(data.status === 400){
-            // PRECISA EXIBIR OS CAMPOS INVÁLIDOS
-        }
-
         divErros.innerHTML = "";
         divErros.appendChild(paragraphElement);
     } else {
-        window.alert(data.title);
-        window.location.href = url;
+        // Armazeno o id do usuário no sessionStorage para poder gerar as URL da área do paciente na pagina-inicial
+        sessionStorage.setItem("userId", data.id);
+        window.location.href = `${url}/pagina-inicial`;
     }
-}
 
+
+}

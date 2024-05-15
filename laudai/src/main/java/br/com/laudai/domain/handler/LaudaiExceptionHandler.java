@@ -121,4 +121,12 @@ public class LaudaiExceptionHandler extends ResponseEntityExceptionHandler {
         return problemDetail;
     }
 
+    @ExceptionHandler(AutenticacaoException.class)
+    public ProblemDetail handleAutenticacaoException(AutenticacaoException exception) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.UNAUTHORIZED);
+        problemDetail.setTitle(exception.getMessage());
+        problemDetail.setType(URI.create("/errors/credencial-invalida"));
+        return problemDetail;
+    }
+
 }

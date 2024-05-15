@@ -12,7 +12,7 @@ import java.util.List;
 public class ResponseBody {
 
     private Integer httpStatusCode;
-    private String message;
+    private String title;
     private List<Object> results;
 
 }
