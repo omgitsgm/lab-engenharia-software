@@ -7,33 +7,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./laud-ai
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Configurar Python
-        uses: actions/setup-python@v1
-        with:
-          python-version: "3.11"
-
-      - name: Instalar Dependencias
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-    
+  
   deploy:
-    needs:
-      - build
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./laud-ai
+        working-directory: ./laudai
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Configurar Python
         uses: actions/setup-python@v1
@@ -53,6 +34,22 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
+      - uses: actions/setup-java@v4
+        with:
+        java-version: '17'
+        distribution: 'temurin'
+      
+      - name: Run the Maven verify phase
+        run: mvn --batch-mode --update-snapshots verify
+      
+      - name: Copy application.properties
+        run: |
+          echo "$env:APPLICATION_PROPERTIES" > src/main/resources/application.properties && \
+          cat src/main/resources/application.properties 
+
+      - name: Build app
+        run: mvn -DskipTests=true package
+
       - name: Deploy no Elastic BeanStalk
         run: |
-          eb use laudai-env && eb status laudai-env && eb deploy
+          eb use laudai-java-env-1 && eb status laudai-java-env-1 && eb deploy
