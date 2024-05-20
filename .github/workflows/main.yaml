@@ -36,8 +36,8 @@ jobs:
 
       - uses: actions/setup-java@v4
         with:
-        java-version: '17'
-        distribution: 'temurin'
+          java-version: '17'
+          distribution: 'temurin'
       
       - name: Run the Maven verify phase
         run: mvn --batch-mode --update-snapshots verify
