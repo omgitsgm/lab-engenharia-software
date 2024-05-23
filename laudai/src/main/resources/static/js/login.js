@@ -19,7 +19,7 @@ form.addEventListener("submit", async(e) => {
 
 async function autentica(json) {
 
-    const response = await fetch(`${url}/autenticacao`, {
+    const response = await fetch(`${url}/paciente/autenticar`, {
         method: "POST",
         body: json,
         headers: {

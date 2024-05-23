@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/autenticacao")
+@RequestMapping()
 public class AutenticacaoController {
 
     private final AutenticacaoService autenticacaoService;
     private final PacienteMapper pacienteMapper;
 
-    @PostMapping
-    public ResponseEntity<PacienteOutput> autentica(@RequestBody AutenticacaoInput autenticacaoInput) {
+    @PostMapping("/paciente/autenticar")
+    public ResponseEntity<PacienteOutput> autenticaPaciente(@RequestBody AutenticacaoInput autenticacaoInput) {
 
         Paciente paciente = autenticacaoService.autentica(autenticacaoInput.email(), autenticacaoInput.senha());
         PacienteOutput pacienteOutput = pacienteMapper.toPacienteOutput(paciente);
