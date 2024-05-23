@@ -129,4 +129,12 @@ public class LaudaiExceptionHandler extends ResponseEntityExceptionHandler {
         return problemDetail;
     }
 
+    @ExceptionHandler(RadiologistaCrmDuplicadoException.class)
+    public ProblemDetail handleRadiologistaCrmDuplicadoException(RadiologistaCrmDuplicadoException exception) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.CONFLICT);
+        problemDetail.setTitle(exception.getMessage());
+        problemDetail.setType(URI.create("/errors/radiologista-crm-duplicado"));
+        return problemDetail;
+    }
+
 }
