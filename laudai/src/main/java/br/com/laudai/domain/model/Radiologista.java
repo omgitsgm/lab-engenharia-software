@@ -29,4 +29,7 @@ public class Radiologista {
     @OneToMany
     private List<Consulta> consultas;
 
+    @ManyToOne
+    private Laboratorio laboratorio;
+
 }
