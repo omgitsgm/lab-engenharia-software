@@ -1,5 +1,6 @@
 package br.com.laudai.domain.service;
 
+import br.com.laudai.domain.exception.AutenticacaoException;
 import br.com.laudai.domain.exception.RadiologistaCrmDuplicadoException;
 import br.com.laudai.domain.model.Radiologista;
 import br.com.laudai.infra.repository.RadiologistaRepository;
@@ -20,6 +21,14 @@ public class RadiologistaServiceImpl implements RadiologistaService{
             throw new RadiologistaCrmDuplicadoException(radiologista.getCrm());
 
         return radiologistaRepository.save(radiologista);
+
+    }
+
+    @Override
+    public Radiologista autenticar(String crm, String senha) {
+
+        return radiologistaRepository.findByCrmAndSenha(crm, senha)
+                .orElseThrow(AutenticacaoException::new);
 
     }
 }
