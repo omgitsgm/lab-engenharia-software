@@ -25,4 +25,7 @@ public class Laboratorio {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Exame> exames;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Radiologista> radiologista;
+
 }
