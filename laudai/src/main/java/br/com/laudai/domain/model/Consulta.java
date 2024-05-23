@@ -35,4 +35,10 @@ public class Consulta {
 
     private LocalDateTime dataHorario;
 
+    @ManyToOne
+    private Radiologista radiologista;
+
+    @OneToOne(cascade = CascadeType.REMOVE)
+    private ResultadoExame resultadoExame;
+
 }
