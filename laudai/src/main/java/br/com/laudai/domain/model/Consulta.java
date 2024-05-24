@@ -38,7 +38,7 @@ public class Consulta {
     @ManyToOne
     private Radiologista radiologista;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne(cascade = CascadeType.ALL)
     private ResultadoExame resultadoExame;
 
 }
