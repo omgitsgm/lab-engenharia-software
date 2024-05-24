@@ -1,6 +1,6 @@
 branch-defaults:
   default:
-    environment: Laudai-java-env-1
+    environment: laudai-env-lb
     group_suffix: null
 deploy:
   artifact: target/laudai-0.0.1-SNAPSHOT.jar
