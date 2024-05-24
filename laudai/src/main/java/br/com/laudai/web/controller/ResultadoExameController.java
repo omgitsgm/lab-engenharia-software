@@ -84,7 +84,7 @@ public class ResultadoExameController {
             InputStream inputStream = imagemStorageService.recuperar(imagemExame.getNomeArquivo());
 
             return ResponseEntity.ok()
-                    .contentType(MediaType.IMAGE_JPEG)
+                    .contentType(mediaType)
                     .body(new InputStreamResource(inputStream));
 
         } catch (Exception e) {
