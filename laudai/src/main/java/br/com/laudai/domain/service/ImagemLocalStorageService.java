@@ -41,6 +41,18 @@ public class ImagemLocalStorageService implements ImagemStorageService{
 
     }
 
+    @Override
+    public InputStream recuperar(String nomeArquivo) {
+        Path path = getArquivoPath(nomeArquivo);
+
+        try {
+            return Files.newInputStream(path);
+        } catch (IOException e) {
+            throw new RuntimeException("Não foi possível recuperar o arquivo.");
+        }
+
+    }
+
     private Path getArquivoPath(String nomeArquivo) {
         return localDirectory.resolve(Path.of(nomeArquivo));
     }

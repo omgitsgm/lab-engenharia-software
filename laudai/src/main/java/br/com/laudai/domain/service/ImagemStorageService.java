@@ -8,6 +8,8 @@ public interface ImagemStorageService {
 
     void remover(String nomeArquivo);
 
+    InputStream recuperar(String nomeArquivo);
+
     default void substituir(String nomeArquivoAntigo, String nomeArquivoNovo, InputStream inputStreamArquivoNovo){
         this.armazenar(nomeArquivoNovo, inputStreamArquivoNovo);
 

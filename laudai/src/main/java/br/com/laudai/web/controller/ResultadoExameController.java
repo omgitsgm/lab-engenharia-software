@@ -3,19 +3,24 @@ package br.com.laudai.web.controller;
 import br.com.laudai.domain.model.ImagemExame;
 import br.com.laudai.domain.service.ImagemStorageService;
 import br.com.laudai.domain.service.ResultadoExameService;
+import br.com.laudai.domain.service.ResultadoExameServiceImpl;
 import br.com.laudai.web.dto.input.ImagemExameInput;
 import br.com.laudai.web.dto.output.ImagemExameOutput;
 import br.com.laudai.web.mapper.ImagemExameMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.print.attribute.standard.Media;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -26,6 +31,7 @@ public class ResultadoExameController {
 
     private final ResultadoExameService resultadoExameService;
     private final ImagemExameMapper imagemExameMapper;
+    private final ImagemStorageService imagemStorageService;
 
     @PutMapping(value = "/imagem", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ImagemExameOutput> atualizarImagemExame(@PathVariable Integer idConsulta,
@@ -51,6 +57,48 @@ public class ResultadoExameController {
 
 
         return ResponseEntity.ok(imagemExameOutput);
+
+    }
+
+    @GetMapping(value = "/imagem", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ImagemExameOutput> buscar(@PathVariable Integer idConsulta) {
+
+        ImagemExame imagemExame = resultadoExameService.buscar(idConsulta);
+        ImagemExameOutput imagemExameOutput = imagemExameMapper.toImagemExameOutput(imagemExame);
+
+        return ResponseEntity.ok(imagemExameOutput);
+
+    }
+
+    @GetMapping(value = "/imagem")
+    public ResponseEntity<InputStreamResource> disponibilizarImagem(@PathVariable Integer idConsulta,
+                                                                    @RequestHeader(name = "accept") String acceptHeader) {
+        try {
+            ImagemExame imagemExame = resultadoExameService.buscar(idConsulta);
+
+            MediaType mediaType = MediaType.parseMediaType(imagemExame.getContentType());
+            List<MediaType> mediaTypesAceitas = MediaType.parseMediaTypes(acceptHeader);
+
+            verificarCompatibilidadeMediaType(mediaType, mediaTypesAceitas);
+
+            InputStream inputStream = imagemStorageService.recuperar(imagemExame.getNomeArquivo());
+
+            return ResponseEntity.ok()
+                    .contentType(mediaType)
+                    .body(new InputStreamResource(inputStream));
+
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    private void verificarCompatibilidadeMediaType(MediaType mediaType, List<MediaType> mediaTypesAceitas) {
+
+        boolean compativel = mediaTypesAceitas.stream()
+                .anyMatch(mediaTypesAceita -> mediaTypesAceita.isCompatibleWith(mediaType));
+
+        if(!compativel)
+            throw new RuntimeException("A imagem não está no mediatype aceito pelo consumidor da API.");
 
     }
 
