@@ -1,4 +1,4 @@
-const url = "http://laudai-java-env-1.eba-yyhcjp3c.us-east-1.elasticbeanstalk.com";
+const url = "http://laudai-lb.us-east-1.elasticbeanstalk.com/";
 const form = document.querySelector('[data-form]');
 const divErros = document.querySelector('#div-erros')
 
