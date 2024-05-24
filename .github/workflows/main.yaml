@@ -49,4 +49,4 @@ jobs:
 
       - name: Deploy no Elastic BeanStalk
         run: |
-          eb use laudai-java-env-2 && eb status laudai-java-env-2 && eb deploy
+          eb use laudai-env-lb && eb status laudai-env-lb && eb deploy
