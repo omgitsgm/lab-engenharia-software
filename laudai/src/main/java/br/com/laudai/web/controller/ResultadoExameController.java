@@ -10,12 +10,15 @@ import br.com.laudai.web.mapper.ImagemExameMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.print.attribute.standard.Media;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.UUID;
 
@@ -27,6 +30,7 @@ public class ResultadoExameController {
 
     private final ResultadoExameService resultadoExameService;
     private final ImagemExameMapper imagemExameMapper;
+    private final ImagemStorageService imagemStorageService;
 
     @PutMapping(value = "/imagem", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ImagemExameOutput> atualizarImagemExame(@PathVariable Integer idConsulta,
@@ -55,7 +59,7 @@ public class ResultadoExameController {
 
     }
 
-    @GetMapping("/imagem")
+    @GetMapping(value = "/imagem", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ImagemExameOutput> buscar(@PathVariable Integer idConsulta) {
 
         ImagemExame imagemExame = resultadoExameService.buscar(idConsulta);
@@ -63,6 +67,22 @@ public class ResultadoExameController {
 
         return ResponseEntity.ok(imagemExameOutput);
 
+    }
+
+    @GetMapping(value = "/imagem", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<InputStreamResource> disponibilizarImagem(@PathVariable Integer idConsulta) {
+        try {
+            ImagemExame imagemExame = resultadoExameService.buscar(idConsulta);
+
+            InputStream inputStream = imagemStorageService.recuperar(imagemExame.getNomeArquivo());
+
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_JPEG)
+                    .body(new InputStreamResource(inputStream));
+
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
