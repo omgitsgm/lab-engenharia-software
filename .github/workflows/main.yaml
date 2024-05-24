@@ -40,9 +40,10 @@ jobs:
           distribution: 'temurin'
       
       - name: Copy application.properties
+        env: 
+          VAR_FILE: ${{ secrets.APPLICATION_PROPERTIES }}
         run: |
-          echo "$env:APPLICATION_PROPERTIES" > src/main/resources/application.properties && \
-          cat src/main/resources/application.properties 
+          echo $VAR_FILE > src/main/resources/application.properties 
 
       - name: Build app
         run: mvn -DskipTests=true package
