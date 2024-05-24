@@ -43,6 +43,7 @@ public class ResultadoExameServiceImpl implements ResultadoExameService {
             // Se já tem uma imagem, eu atualizo a imagem que já estava persistida.
             log.info("Já tem uma imagem!");
             log.info(consulta.getResultadoExame().getImagemExame().toString());
+            String nomeArquivoAntigo = consulta.getResultadoExame().getImagemExame().getNomeArquivo();
 
             Integer id = consulta.getResultadoExame().getImagemExame().getId();
             imagemExame.setId(id);
@@ -53,7 +54,9 @@ public class ResultadoExameServiceImpl implements ResultadoExameService {
 
             log.info(consulta.getResultadoExame().getImagemExame().toString());
 
-            imagemStorageService.armazenar(imagemExame.getNomeArquivo(), inputStream);
+
+            imagemStorageService.substituir(nomeArquivoAntigo, imagemExame.getNomeArquivo(), inputStream);
+
             return imagemExame;
 
         }

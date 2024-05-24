@@ -28,6 +28,19 @@ public class ImagemLocalStorageService implements ImagemStorageService{
 
     }
 
+    @Override
+    public void remover(String nomeArquivo) {
+
+        Path path = getArquivoPath(nomeArquivo);
+
+        try {
+            Files.deleteIfExists(path);
+        } catch (IOException e) {
+            throw new RuntimeException("Não foi possível excluir o arquivo.");
+        }
+
+    }
+
     private Path getArquivoPath(String nomeArquivo) {
         return localDirectory.resolve(Path.of(nomeArquivo));
     }
