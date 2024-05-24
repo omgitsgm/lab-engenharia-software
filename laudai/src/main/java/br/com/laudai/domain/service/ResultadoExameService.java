@@ -6,6 +6,7 @@ import java.io.InputStream;
 
 public interface ResultadoExameService {
 
-    public ImagemExame save(ImagemExame imagemExame, Integer idConsulta, InputStream inputStream);
+    ImagemExame save(ImagemExame imagemExame, Integer idConsulta, InputStream inputStream);
+    ImagemExame buscar(Integer idConsulta);
 
 }

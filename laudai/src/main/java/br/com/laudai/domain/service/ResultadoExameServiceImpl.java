@@ -73,4 +73,14 @@ public class ResultadoExameServiceImpl implements ResultadoExameService {
         return consulta.getResultadoExame().getImagemExame();
 
     }
+
+    @Override
+    public ImagemExame buscar(Integer idConsulta) {
+        Consulta consulta = consultaService.findById(idConsulta);
+
+        if(consulta.getResultadoExame() != null && consulta.getResultadoExame().getImagemExame() != null)
+                return consulta.getResultadoExame().getImagemExame();
+
+        throw new RuntimeException("Não existe uma imagem Exame para essa Consulta");
+    }
 }

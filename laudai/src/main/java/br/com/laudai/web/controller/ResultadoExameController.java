@@ -3,6 +3,7 @@ package br.com.laudai.web.controller;
 import br.com.laudai.domain.model.ImagemExame;
 import br.com.laudai.domain.service.ImagemStorageService;
 import br.com.laudai.domain.service.ResultadoExameService;
+import br.com.laudai.domain.service.ResultadoExameServiceImpl;
 import br.com.laudai.web.dto.input.ImagemExameInput;
 import br.com.laudai.web.dto.output.ImagemExameOutput;
 import br.com.laudai.web.mapper.ImagemExameMapper;
@@ -49,6 +50,16 @@ public class ResultadoExameController {
 
         ImagemExameOutput imagemExameOutput = imagemExameMapper.toImagemExameOutput(savedImagemExame);
 
+
+        return ResponseEntity.ok(imagemExameOutput);
+
+    }
+
+    @GetMapping("/imagem")
+    public ResponseEntity<ImagemExameOutput> buscar(@PathVariable Integer idConsulta) {
+
+        ImagemExame imagemExame = resultadoExameService.buscar(idConsulta);
+        ImagemExameOutput imagemExameOutput = imagemExameMapper.toImagemExameOutput(imagemExame);
 
         return ResponseEntity.ok(imagemExameOutput);
 
