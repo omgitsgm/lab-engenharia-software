@@ -18,4 +18,7 @@ public class ResultadoExame {
     @OneToOne
     private Consulta consulta;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private ImagemExame imagemExame;
+
 }

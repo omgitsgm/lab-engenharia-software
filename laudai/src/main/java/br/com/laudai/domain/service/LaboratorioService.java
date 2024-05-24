@@ -1,5 +1,6 @@
 package br.com.laudai.domain.service;
 
+import br.com.laudai.domain.model.Consulta;
 import br.com.laudai.domain.model.Exame;
 import br.com.laudai.domain.model.Laboratorio;
 
@@ -14,4 +15,7 @@ public interface LaboratorioService {
     List<Laboratorio> findAllByExame(String nome);
 
     List<Exame> findExamesDisponiveis(Integer laboratorioId);
+
+    List<Consulta> getConsultasById(Integer laboratorioId);
+
 }
