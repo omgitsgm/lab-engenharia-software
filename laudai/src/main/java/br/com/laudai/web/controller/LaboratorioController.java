@@ -1,12 +1,15 @@
 package br.com.laudai.web.controller;
 
+import br.com.laudai.domain.model.Consulta;
 import br.com.laudai.domain.model.Exame;
 import br.com.laudai.domain.model.Laboratorio;
 import br.com.laudai.domain.service.LaboratorioService;
 import br.com.laudai.web.dto.input.LaboratorioInput;
+import br.com.laudai.web.dto.output.ConsultaOutput;
 import br.com.laudai.web.dto.output.ExameOutput;
 import br.com.laudai.web.dto.output.LaboratorioOutput;
 import br.com.laudai.web.http.ResponseBody;
+import br.com.laudai.web.mapper.ConsultaMapper;
 import br.com.laudai.web.mapper.ExameMapper;
 import br.com.laudai.web.mapper.LaboratorioMapper;
 import jakarta.validation.Valid;
@@ -27,6 +30,7 @@ public class LaboratorioController {
     private final LaboratorioService laboratorioService;
     private final LaboratorioMapper laboratorioMapper;
     private final ExameMapper exameMapper;
+    private final ConsultaMapper consultaMapper;
 
     private static final String LABORATORIO_URI = "/laboratorio/";
 
@@ -69,8 +73,6 @@ public class LaboratorioController {
 
     }
 
-
-
     @GetMapping("/exame")
     public ResponseEntity<List<LaboratorioOutput>> findAllByExame(@RequestParam(name = "nome") String nome) {
 
@@ -82,6 +84,18 @@ public class LaboratorioController {
         return ResponseEntity.ok(laboratorioOutputList);
 
     }
+
+    @GetMapping("/{id}/consulta")
+    public ResponseEntity<List<ConsultaOutput>> getConsultas(@PathVariable Integer id) {
+
+        List<Consulta> consultaList = laboratorioService.getConsultasById(id);
+
+        List<ConsultaOutput> consultaOutputList = consultaList.stream().map(consultaMapper::toConsultaOutput).toList();
+
+        return ResponseEntity.ok(consultaOutputList);
+
+    }
+
 
 
 }
