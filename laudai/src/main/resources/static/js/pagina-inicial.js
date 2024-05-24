@@ -1,4 +1,4 @@
-const url = "http://laudai-java-env-1.eba-yyhcjp3c.us-east-1.elasticbeanstalk.com";
+const url = "http://laudai-lb.us-east-1.elasticbeanstalk.com/";
 const sairButton = document.querySelector('[data-sair]');
 const minhasConsultasButton = document.querySelector('[data-minhas-consultas]');
 const agendarButton = document.querySelector('[data-agendar]');
