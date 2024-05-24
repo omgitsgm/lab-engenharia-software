@@ -20,6 +20,7 @@ import javax.print.attribute.standard.Media;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -69,10 +70,16 @@ public class ResultadoExameController {
 
     }
 
-    @GetMapping(value = "/imagem", produces = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity<InputStreamResource> disponibilizarImagem(@PathVariable Integer idConsulta) {
+    @GetMapping(value = "/imagem")
+    public ResponseEntity<InputStreamResource> disponibilizarImagem(@PathVariable Integer idConsulta,
+                                                                    @RequestHeader(name = "accept") String acceptHeader) {
         try {
             ImagemExame imagemExame = resultadoExameService.buscar(idConsulta);
+
+            MediaType mediaType = MediaType.parseMediaType(imagemExame.getContentType());
+            List<MediaType> mediaTypesAceitas = MediaType.parseMediaTypes(acceptHeader);
+
+            verificarCompatibilidadeMediaType(mediaType, mediaTypesAceitas);
 
             InputStream inputStream = imagemStorageService.recuperar(imagemExame.getNomeArquivo());
 
@@ -83,6 +90,16 @@ public class ResultadoExameController {
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    private void verificarCompatibilidadeMediaType(MediaType mediaType, List<MediaType> mediaTypesAceitas) {
+
+        boolean compativel = mediaTypesAceitas.stream()
+                .anyMatch(mediaTypesAceita -> mediaTypesAceita.isCompatibleWith(mediaType));
+
+        if(!compativel)
+            throw new RuntimeException("A imagem não está no mediatype aceito pelo consumidor da API.");
+
     }
 
 }
