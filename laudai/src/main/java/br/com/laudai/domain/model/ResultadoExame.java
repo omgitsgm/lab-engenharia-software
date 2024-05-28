@@ -21,4 +21,6 @@ public class ResultadoExame {
     @OneToOne(cascade = CascadeType.ALL)
     private ImagemExame imagemExame;
 
+    private Double probabilidade;
+
 }

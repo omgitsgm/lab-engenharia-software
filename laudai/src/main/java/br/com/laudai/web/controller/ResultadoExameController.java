@@ -3,7 +3,6 @@ package br.com.laudai.web.controller;
 import br.com.laudai.domain.model.ImagemExame;
 import br.com.laudai.domain.service.ImagemStorageService;
 import br.com.laudai.domain.service.ResultadoExameService;
-import br.com.laudai.domain.service.ResultadoExameServiceImpl;
 import br.com.laudai.web.dto.input.ImagemExameInput;
 import br.com.laudai.web.dto.output.ImagemExameOutput;
 import br.com.laudai.web.mapper.ImagemExameMapper;
@@ -16,10 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.print.attribute.standard.Media;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Path;
 import java.util.List;
 import java.util.UUID;
 
@@ -52,6 +49,7 @@ public class ResultadoExameController {
         } catch (IOException e) {
             throw new RuntimeException("Não foi possível armazenar a imagem");
         }
+
         log.info(savedImagemExame.toString());
 
         ImagemExameOutput imagemExameOutput = imagemExameMapper.toImagemExameOutput(savedImagemExame);
