@@ -1,0 +1,383 @@
+{
+	"info": {
+		"_postman_id": "57f36db3-b086-45f2-b727-ffb957e3ff36",
+		"name": "Laud.ai",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "27023390"
+	},
+	"item": [
+		{
+			"name": "Paciente",
+			"item": [
+				{
+					"name": "Cadastrar paciente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"João\",\r\n    \"cpf\": \"49710302809\",\r\n    \"email\": \"joao@gmail.com\",\r\n    \"senha\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/paciente"
+					},
+					"response": []
+				},
+				{
+					"name": "Procurar paciente por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/paciente/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Visualizar consultas do paciente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/paciente/1/consulta"
+					},
+					"response": []
+				},
+				{
+					"name": "Autenticação",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"luizgabrielpm@gmail.com\",\r\n    \"senha\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/paciente/autenticar"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Resultado Exame",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/paciente/1/consulta/1/resultado"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Laboratório",
+			"item": [
+				{
+					"name": "Cadastrar Laboratório",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Nome do Laboratório\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/laboratorio"
+					},
+					"response": []
+				},
+				{
+					"name": "Procurar laboratório por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/laboratorio/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Procurar laboratórios por exame disponível",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/laboratorio/exame?nome=Exame 1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"laboratorio",
+								"exame"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "Exame 1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ver exames disponíveis de um laboratório",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/laboratorio/1/exame"
+					},
+					"response": []
+				},
+				{
+					"name": "Ver todas as consultas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/laboratorio/1/consulta"
+					},
+					"response": []
+				},
+				{
+					"name": "Procurar todos os laboratórios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/laboratorio"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Exame",
+			"item": [
+				{
+					"name": "Cadastrar Exame",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Nome do Exame\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/exame"
+					},
+					"response": []
+				},
+				{
+					"name": "Procurar exame por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/exame/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Visualizar todos os exames existentes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/exame"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Consulta",
+			"item": [
+				{
+					"name": "Agendar consulta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"exameId\": 1,\r\n    \"laboratorioId\": 1,\r\n    \"dataHorario\": \"29/05/2024 13:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/paciente/1/consulta"
+					},
+					"response": []
+				},
+				{
+					"name": "Cancelar consulta",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:8080/paciente/1/consulta/2"
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Imagem do Resultado do Exame",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "arquivo",
+									"type": "file",
+									"src": "/C:/Users/luizg/OneDrive/Documents/Mackenzie/Engenharia de Software/27_53.jpg"
+								}
+							]
+						},
+						"url": "localhost:8080/consulta/1/resultado/imagem"
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Imagem do Resultado do Exame",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "image/*",
+								"type": "text"
+							}
+						],
+						"url": "localhost:8080/consulta/1/resultado/imagem"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Exames Disponíveis",
+			"item": [
+				{
+					"name": "Disponibilizar Exame em Laboratório",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": "localhost:8080/laboratorio/1/exame/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Remover Exame de Laboratório",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:8080/laboratorio/1/exame/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Radiologista",
+			"item": [
+				{
+					"name": "Cadastrar Radiologista",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Gabriel\",\r\n    \"crm\": \"1213431\",\r\n    \"senha\": \"12345678\",\r\n    \"laboratorioId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/radiologista"
+					},
+					"response": []
+				},
+				{
+					"name": "Autenticação",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"crm\": \"1213431\",\r\n    \"senha\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/radiologista/autenticar"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Modelo",
+			"item": [
+				{
+					"name": "Predict",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/luizg/OneDrive/Documents/Mackenzie/Engenharia de Software/27_100.jpg"
+								}
+							]
+						},
+						"url": "localhost:5000/predict"
+					},
+					"response": []
+				},
+				{
+					"name": "Processar Imagem",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/luizg/OneDrive/Documents/Mackenzie/Engenharia de Software/27_100.jpg",
+									"disabled": true
+								}
+							]
+						},
+						"url": "localhost:8080/modelo/predict/27_103.jpg"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
