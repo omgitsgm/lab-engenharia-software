@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.naming.ServiceUnavailableException;
 import java.io.FileNotFoundException;
 import java.net.URI;
 import java.util.Map;
@@ -138,12 +139,23 @@ public class LaudaiExceptionHandler extends ResponseEntityExceptionHandler {
         return problemDetail;
     }
 
-    @ExceptionHandler(FileNotFoundException.class)
-    public ProblemDetail handleFileNotFoundException(FileNotFoundException exception) {
+    @ExceptionHandler(ArquivoNaoEncontradoException.class)
+    public ProblemDetail handleArquivoNaoEncontradoException(ArquivoNaoEncontradoException exception) {
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
-        problemDetail.setTitle("O sistema não pôde encontrar o arquivo especificado.");
+        problemDetail.setTitle(exception.getMessage());
         problemDetail.setType(URI.create("/errors/arquivo-nao-encontrado"));
         return problemDetail;
     }
+
+
+    @ExceptionHandler(ModeloApiException.class)
+    public ProblemDetail handleFileNotFoundException(ModeloApiException exception) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+        problemDetail.setTitle(exception.getMessage());
+        problemDetail.setType(URI.create("/errors/erro-modelo-api"));
+        return problemDetail;
+    }
+
+
 
 }
