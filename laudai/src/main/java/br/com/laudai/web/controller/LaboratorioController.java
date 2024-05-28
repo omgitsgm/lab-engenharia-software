@@ -114,6 +114,18 @@ public class LaboratorioController {
 
     }
 
+    @GetMapping
+    public List<LaboratorioOutput> getAllLaboratorios() {
+
+        log.info("Inicializando método de procurar todos os laboratórios.");
+
+        List<Laboratorio> laboratorioList = laboratorioService.findAll();
+
+        log.info("Finalizando método de procurar todos os laboratórios.");
+        return laboratorioList.stream().map(laboratorioMapper::toLaboratorioOutput).toList();
+
+    }
+
 
 
 }

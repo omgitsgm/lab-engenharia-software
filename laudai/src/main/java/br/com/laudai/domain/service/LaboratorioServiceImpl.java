@@ -67,4 +67,10 @@ public class LaboratorioServiceImpl implements LaboratorioService{
         return consultaRepository.findAllByLaboratorio(laboratorio);
 
     }
+
+    @Override
+    public List<Laboratorio> findAll() {
+        log.info("Obtendo todos os laboratórios...");
+        return laboratorioRepository.findAll();
+    }
 }

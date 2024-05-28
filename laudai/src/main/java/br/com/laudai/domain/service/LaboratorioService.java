@@ -18,4 +18,6 @@ public interface LaboratorioService {
 
     List<Consulta> getConsultasById(Integer laboratorioId);
 
+    List<Laboratorio> findAll();
+
 }
