@@ -61,7 +61,7 @@ public class ImagemLocalStorageService implements ImagemStorageService{
 
     }
 
-    private Path getArquivoPath(String nomeArquivo) {
+    public Path getArquivoPath(String nomeArquivo) {
         return localDirectory.resolve(Path.of(nomeArquivo));
     }
 }
