@@ -2,10 +2,12 @@ package br.com.laudai.web.controller;
 
 import br.com.laudai.domain.model.Consulta;
 import br.com.laudai.domain.model.Paciente;
+import br.com.laudai.domain.model.ResultadoExame;
 import br.com.laudai.domain.service.PacienteService;
 import br.com.laudai.web.dto.input.PacienteInput;
 import br.com.laudai.web.dto.output.ConsultaOutput;
 import br.com.laudai.web.dto.output.PacienteOutput;
+import br.com.laudai.web.dto.output.ResultadoExameOutput;
 import br.com.laudai.web.http.ResponseBody;
 import br.com.laudai.web.mapper.ConsultaMapper;
 import br.com.laudai.web.mapper.PacienteMapper;
@@ -77,6 +79,26 @@ public class PacienteController {
 
         log.info("Finalizando método de procurar consultas de um paciente.");
         return ResponseEntity.ok(consultaOutputList);
+    }
+
+    @GetMapping("/{idPaciente}/consulta/{idConsulta}/resultado")
+    public ResponseEntity<ResultadoExameOutput> getResultadoExame(@PathVariable Integer idPaciente,
+                                                                  @PathVariable Integer idConsulta) {
+
+        ResultadoExame resultadoExame = pacienteService.getResultadoExame(idPaciente, idConsulta);
+
+
+        ResultadoExameOutput resultadoExameOutput = new ResultadoExameOutput(
+                resultadoExame.getConsulta().getId(),
+                resultadoExame.getId(),
+                resultadoExame.getConsulta().getExame().getNome(),
+                resultadoExame.getConsulta().getLaboratorio().getNome(),
+                resultadoExame.getConsulta().getPaciente().getNome(),
+                resultadoExame.getProbabilidade()
+        );
+
+        return ResponseEntity.ok(resultadoExameOutput);
+
     }
 
 }

@@ -156,6 +156,14 @@ public class LaudaiExceptionHandler extends ResponseEntityExceptionHandler {
         return problemDetail;
     }
 
+    @ExceptionHandler(ResultadoIndisponivelException.class)
+    public ProblemDetail handleResultadoIndisponivelException(ResultadoIndisponivelException exception) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
+        problemDetail.setTitle(exception.getMessage());
+        problemDetail.setType(URI.create("/errors/resultado-indisponivel"));
+        return problemDetail;
+    }
+
 
 
 }

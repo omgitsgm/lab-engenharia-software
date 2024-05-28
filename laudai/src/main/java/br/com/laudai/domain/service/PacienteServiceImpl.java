@@ -2,13 +2,16 @@ package br.com.laudai.domain.service;
 
 import br.com.laudai.domain.exception.*;
 import br.com.laudai.domain.model.Consulta;
+import br.com.laudai.domain.model.ImagemExame;
 import br.com.laudai.domain.model.Paciente;
+import br.com.laudai.domain.model.ResultadoExame;
 import br.com.laudai.infra.repository.PacienteRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -60,6 +63,24 @@ public class PacienteServiceImpl implements PacienteService {
                     log.error("Credenciais inválidas.");
                     return new AutenticacaoException();
                 });
+    }
+
+    @Override
+    public ResultadoExame getResultadoExame(Integer idPaciente, Integer idConsulta) {
+
+        Paciente paciente = findById(idPaciente);
+
+        List<Consulta> consultas = paciente.getConsultas();
+        Consulta consulta = consultas.stream()
+                .filter(c -> c.getId().equals(idConsulta)).findFirst()
+                .orElseThrow(AcessoNegadoException::new);
+
+        if(consulta.getResultadoExame() == null) {
+            throw new ResultadoIndisponivelException("O resultado para essa consulta ainda não está disponível.");
+        }
+
+        return consulta.getResultadoExame();
+
     }
 
 }
