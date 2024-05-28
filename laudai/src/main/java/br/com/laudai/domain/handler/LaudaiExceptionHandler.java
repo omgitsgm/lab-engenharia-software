@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.io.FileNotFoundException;
 import java.net.URI;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -134,6 +135,14 @@ public class LaudaiExceptionHandler extends ResponseEntityExceptionHandler {
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.CONFLICT);
         problemDetail.setTitle(exception.getMessage());
         problemDetail.setType(URI.create("/errors/radiologista-crm-duplicado"));
+        return problemDetail;
+    }
+
+    @ExceptionHandler(FileNotFoundException.class)
+    public ProblemDetail handleFileNotFoundException(FileNotFoundException exception) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
+        problemDetail.setTitle("O sistema não pôde encontrar o arquivo especificado.");
+        problemDetail.setType(URI.create("/errors/arquivo-nao-encontrado"));
         return problemDetail;
     }
 
