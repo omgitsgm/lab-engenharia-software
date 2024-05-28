@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 @Component
-@FeignClient(name = "modelo-api", url = "http://localhost:5000")
+@FeignClient(name = "modelo-api", url = "${modelo-api.url}")
 public interface ModeloFeignClient {
 
     @PostMapping(value = "/predict", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
