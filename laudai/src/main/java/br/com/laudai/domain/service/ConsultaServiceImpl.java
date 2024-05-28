@@ -11,10 +11,12 @@ import br.com.laudai.domain.model.Paciente;
 import br.com.laudai.infra.repository.ConsultaRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ConsultaServiceImpl implements ConsultaService{
@@ -32,24 +34,28 @@ public class ConsultaServiceImpl implements ConsultaService{
         Exame exame = exameService.findById(exameId);
         Laboratorio laboratorio = laboratorioService.findById(laboratorioId);
 
-        // CHECAR SE NÃO TEM UMA CONSULTA AGENDADA NESSE LABORATÓRIO NA MESMA DATA E HORÁRIO
+        log.info("Checando se não tem uma consulta agendada no laboratório selecionado na mesma data e horário.");
         laboratorio.getConsultas().forEach(consulta -> {
-            if(consulta.getDataHorario().equals(dataHorario))
+            if(consulta.getDataHorario().equals(dataHorario)) {
+                log.error("Já existe uma consulta agendada no laboratório selecionado na mesma data e horário.");
                 throw new ConsultaIndisponivelException();
+            }
         });
 
-
-        // CHECAR SE O EXAME ESTÁ DISPONÍVEL NAQUELE LABORATÓRIO
+        log.info("Checando se o exame selecionado está disponível no laboratório.");
         if(!laboratorio.getExames().contains(exame)){
+            log.error("Exame não está disponível no laboratório.");
             throw new ExameIndisponivelException(exame.getNome(), laboratorio.getNome());
         }
 
+        log.info("Gerando consulta...");
         Consulta consulta = new Consulta(paciente, exame, laboratorio, dataHorario);
 
         paciente.getConsultas().add(consulta);
         exame.getConsultas().add(consulta);
         laboratorio.getConsultas().add(consulta);
 
+        log.info("Persistindo consulta...");
         return consultaRepository.save(consulta);
 
     }
@@ -62,19 +68,24 @@ public class ConsultaServiceImpl implements ConsultaService{
 
         Paciente paciente = pacienteService.findById(pacienteId);
 
-        if(!paciente.getConsultas().contains(consulta))
+        log.info("Checando se o paciente que está solicitando o cancelamento é o paciente que agendou a consulta.");
+        if(!paciente.getConsultas().contains(consulta)) {
+            log.error("Paciente que tentou cancelar a consulta não é o mesmo que a agendou.");
             throw new AcessoNegadoException();
+        }
 
         paciente.getConsultas().remove(consulta);
         laboratorioService.findById(consulta.getLaboratorio().getId()).getConsultas().remove(consulta);
         exameService.findById(consulta.getExame().getId()).getConsultas().remove(consulta);
 
+        log.info("Cancelando consulta...");
         consultaRepository.delete(consulta);
 
     }
 
     @Override
     public Consulta findById(Integer id) {
+        log.info("Procurando consulta por id no banco de dados...");
         return consultaRepository.findById(id).orElseThrow(ConsultaInexistenteException::new);
     }
 
