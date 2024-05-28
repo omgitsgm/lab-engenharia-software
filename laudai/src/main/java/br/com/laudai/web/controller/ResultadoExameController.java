@@ -37,6 +37,7 @@ public class ResultadoExameController {
     public ResponseEntity<ImagemExameOutput> atualizarImagemExame(@PathVariable Integer idConsulta,
                                                                   @Valid ImagemExameInput imagemExameInput) {
 
+        log.info("Inicializando método de atualizar a imagem de um exame");
         MultipartFile arquivo = imagemExameInput.arquivo();
 
         String originalFilename = UUID.randomUUID().toString() + "_" + arquivo.getOriginalFilename();
@@ -55,7 +56,7 @@ public class ResultadoExameController {
 
         ImagemExameOutput imagemExameOutput = imagemExameMapper.toImagemExameOutput(savedImagemExame);
 
-
+        log.info("Finalizando método de atualizar a imagem de um exame");
         return ResponseEntity.ok(imagemExameOutput);
 
     }
