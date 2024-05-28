@@ -26,23 +26,18 @@ public class ResultadoExameServiceImpl implements ResultadoExameService {
     @Override
     public ImagemExame save(ImagemExame imagemExame, Integer idConsulta, InputStream inputStream) {
 
-        /*
-         * Para persistir uma ImagemExame, eu preciso de um ResultadoExame.
-         * Para ter um ResultadoExame, eu preciso de uma Consulta.
-         */
-
-        // Procuro pela consulta
         Consulta consulta = consultaService.findById(idConsulta);
 
-        // Nem toda consulta possui um ResultadoExame, então...
         if(consulta.getResultadoExame() == null) {
+            log.info("Essa consulta ainda não estava relacionada a uma entidade ResultadoExame. Relacionando agora.");
             ResultadoExame resultadoExame = new ResultadoExame();
             consulta.setResultadoExame(resultadoExame);
             resultadoExame.setConsulta(consulta);
         } else if(consulta.getResultadoExame().getImagemExame() != null) {
             // Se já tem uma imagem, eu atualizo a imagem que já estava persistida.
-            log.info("Já tem uma imagem!");
-            log.info(consulta.getResultadoExame().getImagemExame().toString());
+            log.info("ResultadoExame da Consulta já possui uma imagem");
+            log.debug(consulta.getResultadoExame().getImagemExame().toString());
+
             String nomeArquivoAntigo = consulta.getResultadoExame().getImagemExame().getNomeArquivo();
 
             Integer id = consulta.getResultadoExame().getImagemExame().getId();
@@ -50,24 +45,29 @@ public class ResultadoExameServiceImpl implements ResultadoExameService {
 
             imagemExame.setResultadoExame(consulta.getResultadoExame());
 
+            log.info("Atualizando imagem no banco de dados...");
             imagemExameRepository.save(imagemExame);
 
             log.info(consulta.getResultadoExame().getImagemExame().toString());
 
 
+            log.info("Substituindo imagem antiga pela nova no armazenamento local...");
             imagemStorageService.substituir(nomeArquivoAntigo, imagemExame.getNomeArquivo(), inputStream);
 
             return imagemExame;
 
         }
 
+        log.info("Estabelecendo relacionamentos entre entidades Consulta, ResultadoExame e ImagemExame...");
         // Pego o ResultadoExame da Consulta e defino a ImagemExame.
         consulta.getResultadoExame().setImagemExame(imagemExame);
         // Faço o contrário também...
         imagemExame.setResultadoExame(consulta.getResultadoExame());
 
         // Usando cascade eu consigo atualizar todos os objetos dentro de consulta só persistindo Consulta
+        log.info("Armazenando imagem no banco de dados...");
         consultaRepository.save(consulta);
+        log.info("Armazenando imagem localmente...");
         imagemStorageService.armazenar(imagemExame.getNomeArquivo(), inputStream);
 
         return consulta.getResultadoExame().getImagemExame();
@@ -78,9 +78,11 @@ public class ResultadoExameServiceImpl implements ResultadoExameService {
     public ImagemExame buscar(Integer idConsulta) {
         Consulta consulta = consultaService.findById(idConsulta);
 
+        log.info("Checando se existe uma imagem de resultado para essa consulta...");
         if(consulta.getResultadoExame() != null && consulta.getResultadoExame().getImagemExame() != null)
                 return consulta.getResultadoExame().getImagemExame();
 
+        log.error("Não existe uma imagem de resultado para essa consulta.");
         throw new RuntimeException("Não existe uma imagem Exame para essa Consulta");
     }
 }

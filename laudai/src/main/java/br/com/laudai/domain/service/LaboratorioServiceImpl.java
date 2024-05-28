@@ -7,10 +7,12 @@ import br.com.laudai.domain.model.Laboratorio;
 import br.com.laudai.infra.repository.ConsultaRepository;
 import br.com.laudai.infra.repository.LaboratorioRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class LaboratorioServiceImpl implements LaboratorioService{
@@ -21,20 +23,25 @@ public class LaboratorioServiceImpl implements LaboratorioService{
 
     @Override
     public Laboratorio save(Laboratorio laboratorio) {
-
+        log.info("Persistindo laboratório...");
         return laboratorioRepository.save(laboratorio);
 
     }
 
     @Override
     public Laboratorio findById(Integer id) {
+        log.info("Procurando laboratório...");
         return laboratorioRepository.findById(id)
-                .orElseThrow(() -> new LaboratorioInexistenteException(id));
+                .orElseThrow(() -> {
+                    log.error("Laboratório não existe.");
+                    return new LaboratorioInexistenteException(id);
+                });
     }
 
     @Override
     public List<Laboratorio> findAllByExame(String nome) {
 
+        log.info("Procurando laboratórios por exame...");
         Exame exame = exameService.findByNome(nome);
 
         return exame.getLaboratorios();
@@ -44,6 +51,7 @@ public class LaboratorioServiceImpl implements LaboratorioService{
     @Override
     public List<Exame> findExamesDisponiveis(Integer laboratorioId) {
 
+        log.info("Procurando exames disponíveis...");
         Laboratorio laboratorio = findById(laboratorioId);
 
         return laboratorio.getExames();
@@ -53,6 +61,7 @@ public class LaboratorioServiceImpl implements LaboratorioService{
     @Override
     public List<Consulta> getConsultasById(Integer laboratorioId) {
 
+        log.info("Procurando consultas...");
         Laboratorio laboratorio = findById(laboratorioId);
 
         return consultaRepository.findAllByLaboratorio(laboratorio);

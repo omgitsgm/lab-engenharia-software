@@ -14,6 +14,7 @@ import br.com.laudai.web.mapper.ExameMapper;
 import br.com.laudai.web.mapper.LaboratorioMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/laboratorio")
@@ -37,9 +39,13 @@ public class LaboratorioController {
     @PostMapping
     public ResponseEntity<ResponseBody> save(@RequestBody @Valid LaboratorioInput laboratorioInput) {
 
+        log.info("Inicializando método de cadastrar laboratório.");
+
         Laboratorio laboratorio = laboratorioService.save(laboratorioMapper.toLaboratorio(laboratorioInput));
         LaboratorioOutput laboratorioOutput = laboratorioMapper.toLaboratorioOutput(laboratorio);
 
+
+        log.info("Montando resposta para a requisição de cadastrar laboratório.");
         URI uri = URI.create(LABORATORIO_URI + laboratorioOutput.id());
 
         ResponseBody responseBody = new ResponseBody(
@@ -48,6 +54,7 @@ public class LaboratorioController {
                 new ArrayList<>(List.of(laboratorioOutput))
         );
 
+        log.info("Finalizando método de cadastrar laboratório.");
         return ResponseEntity.created(uri).body(responseBody);
 
     }
@@ -55,9 +62,12 @@ public class LaboratorioController {
     @GetMapping("/{id}")
     public ResponseEntity<LaboratorioOutput> findById(@PathVariable Integer id) {
 
+        log.info("Inicializando método de procurar laboratório por id.");
+
         Laboratorio laboratorio = laboratorioService.findById(id);
         LaboratorioOutput laboratorioOutput = laboratorioMapper.toLaboratorioOutput(laboratorio);
 
+        log.info("Finalizando método de procurar laboratório por id.");
         return ResponseEntity.ok().body(laboratorioOutput);
 
     }
@@ -65,10 +75,12 @@ public class LaboratorioController {
     @GetMapping("/{id}/exame")
     public ResponseEntity<List<ExameOutput>> getExamesDisponiveis(@PathVariable Integer id) {
 
+        log.info("Inicializando método de procurar exames disponíveis em laboratório.");
         List<Exame> examesDisponiveis = laboratorioService.findExamesDisponiveis(id);
 
         List<ExameOutput> exameOutputList = examesDisponiveis.stream().map(exameMapper::toExameOutput).toList();
 
+        log.info("Finalizando método de procurar exames disponíveis em laboratório.");
         return ResponseEntity.ok(exameOutputList);
 
     }
@@ -76,11 +88,14 @@ public class LaboratorioController {
     @GetMapping("/exame")
     public ResponseEntity<List<LaboratorioOutput>> findAllByExame(@RequestParam(name = "nome") String nome) {
 
+        log.info("Inicializando método de procurar todos os laboratórios por exame.");
+
         List<Laboratorio> laboratorios = laboratorioService.findAllByExame(nome);
 
         List<LaboratorioOutput> laboratorioOutputList = laboratorios.stream()
                 .map(laboratorioMapper::toLaboratorioOutput).toList();
 
+        log.info("Finalizando método de procurar todos os laboratórios por exame.");
         return ResponseEntity.ok(laboratorioOutputList);
 
     }
@@ -88,10 +103,13 @@ public class LaboratorioController {
     @GetMapping("/{id}/consulta")
     public ResponseEntity<List<ConsultaOutput>> getConsultas(@PathVariable Integer id) {
 
+        log.info("Inicializando método de procurar todas as consultas de um laboratório.");
+
         List<Consulta> consultaList = laboratorioService.getConsultasById(id);
 
         List<ConsultaOutput> consultaOutputList = consultaList.stream().map(consultaMapper::toConsultaOutput).toList();
 
+        log.info("Finalizando método de procurar todas as consultas de um laboratório.");
         return ResponseEntity.ok(consultaOutputList);
 
     }
