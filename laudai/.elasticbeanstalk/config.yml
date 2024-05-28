@@ -1,0 +1,20 @@
+branch-defaults:
+  default:
+    environment: laudai-env-lb
+    group_suffix: null
+deploy:
+  artifact: target/laudai-0.0.1-SNAPSHOT.jar
+global:
+  application_name: laudai-java
+  branch: null
+  default_ec2_keyname: aws-eb
+  default_platform: Corretto 17 running on 64bit Amazon Linux 2023
+  default_region: us-east-1
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: null
+  repository: null
+  sc: null
+  workspace_type: Application

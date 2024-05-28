@@ -1,4 +1,4 @@
-const url = "http://localhost:8080";
+const url = "http://laudai-lb.us-east-1.elasticbeanstalk.com";
 const sairButton = document.querySelector('[data-sair]');
 const listGroup = document.querySelector('[data-list-group]');
 

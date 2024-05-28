@@ -1,4 +1,4 @@
-const url = "http://localhost:8080";
+const url = "http://laudai-lb.us-east-1.elasticbeanstalk.com";
 const form = document.querySelector('[data-form]');
 const divErros = document.querySelector('[data-erro]');
 

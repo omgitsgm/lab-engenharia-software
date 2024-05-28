@@ -27,7 +27,7 @@ public class ImagemLocalStorageService implements ImagemStorageService{
             FileCopyUtils.copy(inputStream, Files.newOutputStream(path));
         } catch (IOException e) {
             log.error("Erro ao criar o arquivo.");
-            throw new RuntimeException("Não foi possível armazenar o arquivo.");
+            throw new RuntimeException("Não foi possível armazenar o arquivo: " + e);
         }
 
     }
