@@ -5,6 +5,7 @@ import br.com.laudai.domain.model.ImagemExame;
 import br.com.laudai.domain.model.ResultadoExame;
 import br.com.laudai.infra.repository.ConsultaRepository;
 import br.com.laudai.infra.repository.ImagemExameRepository;
+import br.com.laudai.web.feign.model.ModeloResultadoInput;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,7 @@ public class ResultadoExameServiceImpl implements ResultadoExameService {
     private final ConsultaRepository consultaRepository;
     private final ImagemExameRepository imagemExameRepository;
     private final ImagemStorageService imagemStorageService;
+    private final ModeloServiceImpl modeloService;
 
     @Transactional
     @Override
@@ -29,12 +31,14 @@ public class ResultadoExameServiceImpl implements ResultadoExameService {
         Consulta consulta = consultaService.findById(idConsulta);
 
         if(consulta.getResultadoExame() == null) {
+
             log.info("Essa consulta ainda não estava relacionada a uma entidade ResultadoExame. Relacionando agora.");
             ResultadoExame resultadoExame = new ResultadoExame();
             consulta.setResultadoExame(resultadoExame);
             resultadoExame.setConsulta(consulta);
+
         } else if(consulta.getResultadoExame().getImagemExame() != null) {
-            // Se já tem uma imagem, eu atualizo a imagem que já estava persistida.
+
             log.info("ResultadoExame da Consulta já possui uma imagem");
             log.debug(consulta.getResultadoExame().getImagemExame().toString());
 
@@ -50,9 +54,12 @@ public class ResultadoExameServiceImpl implements ResultadoExameService {
 
             log.info(consulta.getResultadoExame().getImagemExame().toString());
 
-
             log.info("Substituindo imagem antiga pela nova no armazenamento local...");
             imagemStorageService.substituir(nomeArquivoAntigo, imagemExame.getNomeArquivo(), inputStream);
+
+            // Eu preciso processar a imagem que foi salva e salvar a porcentagem de ter alzheimer em resultadoExame
+            ModeloResultadoInput predict = modeloService.predict(imagemExame.getNomeArquivo());
+            consulta.getResultadoExame().setProbabilidade(predict.prediction());
 
             return imagemExame;
 
@@ -69,6 +76,10 @@ public class ResultadoExameServiceImpl implements ResultadoExameService {
         consultaRepository.save(consulta);
         log.info("Armazenando imagem localmente...");
         imagemStorageService.armazenar(imagemExame.getNomeArquivo(), inputStream);
+
+        // Eu preciso processar a imagem que foi salva e salvar a porcentagem de ter alzheimer em resultadoExame
+        ModeloResultadoInput predict = modeloService.predict(imagemExame.getNomeArquivo());
+        consulta.getResultadoExame().setProbabilidade(predict.prediction());
 
         return consulta.getResultadoExame().getImagemExame();
 

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.naming.ServiceUnavailableException;
+import java.io.FileNotFoundException;
 import java.net.URI;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -136,5 +138,32 @@ public class LaudaiExceptionHandler extends ResponseEntityExceptionHandler {
         problemDetail.setType(URI.create("/errors/radiologista-crm-duplicado"));
         return problemDetail;
     }
+
+    @ExceptionHandler(ArquivoNaoEncontradoException.class)
+    public ProblemDetail handleArquivoNaoEncontradoException(ArquivoNaoEncontradoException exception) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
+        problemDetail.setTitle(exception.getMessage());
+        problemDetail.setType(URI.create("/errors/arquivo-nao-encontrado"));
+        return problemDetail;
+    }
+
+
+    @ExceptionHandler(ModeloApiException.class)
+    public ProblemDetail handleFileNotFoundException(ModeloApiException exception) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+        problemDetail.setTitle(exception.getMessage());
+        problemDetail.setType(URI.create("/errors/erro-modelo-api"));
+        return problemDetail;
+    }
+
+    @ExceptionHandler(ResultadoIndisponivelException.class)
+    public ProblemDetail handleResultadoIndisponivelException(ResultadoIndisponivelException exception) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
+        problemDetail.setTitle(exception.getMessage());
+        problemDetail.setType(URI.create("/errors/resultado-indisponivel"));
+        return problemDetail;
+    }
+
+
 
 }
