@@ -1,12 +1,14 @@
 package br.com.laudai.domain.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@AllArgsConstructor
 @Entity
 @NoArgsConstructor
 @Getter
@@ -40,5 +42,18 @@ public class Consulta {
 
     @OneToOne(cascade = CascadeType.ALL)
     private ResultadoExame resultadoExame;
+
+    @Override
+    public String toString() {
+        return "Consulta{" +
+                "id=" + id +
+                ", paciente=" + paciente +
+                ", exame=" + exame +
+                ", laboratorio=" + laboratorio +
+                ", dataHorario=" + dataHorario +
+                ", radiologista=" + radiologista +
+                ", resultadoExame=" + resultadoExame +
+                '}';
+    }
 
 }

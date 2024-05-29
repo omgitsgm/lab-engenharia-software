@@ -1,12 +1,14 @@
 package br.com.laudai.domain.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
+@AllArgsConstructor
 @Entity
 @NoArgsConstructor
 @Getter
