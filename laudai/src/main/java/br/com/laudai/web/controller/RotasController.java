@@ -46,4 +46,34 @@ public class RotasController {
         return "agendar-consulta.html";
     }
 
+    @GetMapping("/cadastro-radiologista")
+    public String cadastroRadiologista() {
+        log.info("Renderizando cadastro-radiologista.html...");
+        return "cadastro-radiologista.html";
+    }
+
+    @GetMapping("/inicio-radiologista")
+    public String inicioRadiologista() {
+        log.info("Renderizando inicio-radiologista.html...");
+        return "inicio-radiologista.html";
+    }
+
+    @GetMapping("/login-radiologista")
+    public String loginRadiologista() {
+        log.info("Renderizando login-radiologista.html...");
+        return "login-radiologista.html";
+    }
+
+    @GetMapping("/subir-imagem")
+    public String subirImagem() {
+        log.info("Renderizando subir-imagem.html...");
+        return "subir-imagem.html";
+    }
+
+    @GetMapping("/ver-exames")
+    public String verExames() {
+        log.info("Renderizando ver-exames.html...");
+        return "ver-exames.html";
+    }
+
 }
