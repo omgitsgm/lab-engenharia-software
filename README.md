@@ -18,12 +18,11 @@ https://trello.com/b/RAtHSIis/laudai
 # Arquitetura em 4 camadas 
 <img width="588" alt="image" src="https://github.com/omgitsgm/lab-engenharia-software/assets/81049797/798a6eda-ec00-4b6a-bd48-77dac5f1f60f">
 
+# Pipeline de Esteira
+https://github.com/omgitsgm/lab-engenharia-software/actions
+
 # Design dos requisitos não funcionais 
 ## Desempenho e escalabilidade: Load Balancer
-
-
-
-
 ## Manutenção e rastreabilidade: Implementação de Logs
 
 # Link do vídeo
